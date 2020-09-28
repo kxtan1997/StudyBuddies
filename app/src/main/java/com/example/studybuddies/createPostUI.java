@@ -47,11 +47,12 @@ public class createPostUI extends AppCompatActivity {
         String postDes = postDescription.getText().toString().trim();
         String title = postTitle.getText().toString().trim();
         String sub = subjects.getSelectedItem().toString();
+        double ratings = 0.0;
 
         if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)){
             String id = databasePost.push().getKey();
 
-            Post post = new Post(id, title, postDes, sub);
+            Post post = new Post(id, title, postDes, sub, ratings);
             databasePost.child(id).setValue(post);
 
             Toast.makeText(this,"Post created", Toast.LENGTH_LONG).show();

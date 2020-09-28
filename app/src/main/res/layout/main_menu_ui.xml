@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postRecyclerView"
+        android:id="@+id/mainMenuRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
