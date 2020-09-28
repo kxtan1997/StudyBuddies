@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">StudyBuddies</string>
+
+    <array name="subjects">
+        <item>Introduction to Databases</item>
+        <item>Algorithms</item>
+        <item>Artificial Intelligence</item>
+        <item>Advanced Software Engineering</item>
+    </array>
 </resources>
