@@ -1,21 +1,25 @@
 package com.example.studybuddies;
 
 public class Post {
+    //TODO create string variable for user ID
+    //TODO comments array to be added
+    //TODO add pictures to Post
     String postID;
     String postTitle;
-    String subject;
     String postDescription;
+    String subject;
+    double ratings;
 
     public Post(){
 
     }
 
-    public Post(String postID, String postTitle, String postDescription, String subject){
+    public Post(String postID, String postTitle, String postDescription, String subject, double ratings){
         this.postID = postID;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.subject = subject;
-
+        this.ratings = ratings;
     }
 
     public String getPostID(){
@@ -32,5 +36,9 @@ public class Post {
 
     public String getSubject() {
         return subject;
+    }
+
+    public double getRatings(){
+        return ratings;
     }
 }
