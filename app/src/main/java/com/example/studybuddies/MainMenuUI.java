@@ -48,17 +48,19 @@ public class MainMenuUI extends AppCompatActivity {
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(reference,Post.class).build();
         adapter = new FirebaseRecyclerAdapter<Post, MainMenuViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MainMenuViewHolder mainMenuViewHolder, int i, @NonNull Post post) {
+            protected void onBindViewHolder(@NonNull final MainMenuViewHolder mainMenuViewHolder, int i, @NonNull Post post) {
                 mainMenuViewHolder.postTitle.setText(""+post.getPostTitle());
                 mainMenuViewHolder.postSubject.setText(""+post.getSubject());
                 mainMenuViewHolder.postRating.setText(""+post.getRatings());
-                postID = post.getPostID();
-
+               // postID = post.getPostID();
+                //remove final from mainmenuviewholder if cannot work
                 MainMenuViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        int pos = mainMenuViewHolder.getAdapterPosition();
                         Intent intent = new Intent(view.getContext(), ViewPost.class);
-                        intent.putExtra("postid", postID);
+                        //intent.putExtra("postid", postID);
+                        intent.putExtra("pos", pos);
                         startActivity(intent);
                     }
                 });

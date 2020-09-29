@@ -257,7 +257,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl3"
-                android:layout_width="match_parent"
+                android:layout_width="400dp"
                 android:layout_height="63dp"
                 android:background="#E4E4E2">
 

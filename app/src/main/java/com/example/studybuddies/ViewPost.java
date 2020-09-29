@@ -13,11 +13,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ViewPost extends AppCompatActivity {
 
     Button submitButton,backButton,upVote,downVote;
     String title,description,pID,subject;
-    int rating;
+    int rating,pos;
     TextView prating,ptitle,pdescription,psubject;
 
     @Override
@@ -34,12 +36,13 @@ public class ViewPost extends AppCompatActivity {
         upVote = findViewById(R.id.upVote);
         downVote = findViewById(R.id.downVote);
 
-
         //get postID, passed from mainmenu
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            pID = extras.getString("postid");
-            System.out.println("pid" + pID);
+           // pID = extras.getString("postid");
+            //System.out.println("pid" + pID);
+            pos =  extras.getInt("pos");
+            System.out.println("pos" + pos);
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -67,25 +70,19 @@ public class ViewPost extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Post p = snapshot.getValue(Post.class);
-                            System.out.println("pid inside loop" + p.postID);
-                            if(p.postID.equals(pID)){
-                                rating = p.ratings;
-                                //System.out.println("rating inside loop " + p.ratings);
-                                title = p.postTitle;
-                                //System.out.println("title inside loop " + p.postTitle);
-                                description = p.postDescription;
-                                //System.out.println("Desc inside loop " + p.postDescription);
-                                subject = p.subject;
-                                break;
-                            }
-
+                        Post p = null;
+                        Post np = null;
+                        ArrayList<Post> posts = new ArrayList<>();
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            p = ds.getValue(Post.class);
+                            posts.add(p);
                         }
-                        prating.setText(String.valueOf(rating));
-                        ptitle.setText(title);
-                        pdescription.setText(description);
-                        psubject.setText(subject);
+                        np = posts.get(pos);
+
+                        prating.setText(String.valueOf(np.ratings));
+                        ptitle.setText(np.postTitle);
+                        pdescription.setText(np.postDescription);
+                        psubject.setText(np.subject);
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -94,17 +91,8 @@ public class ViewPost extends AppCompatActivity {
     }
 
     public void back(){
-        /*prating.setText(String.valueOf(""));
-        ptitle.setText("");
-        pdescription.setText("");
-        psubject.setText("");
-        title = "";
-        description ="";
-        subject = "";
-        this.finish();*/
         Intent intent = new Intent(this, MainMenuUI.class);
         startActivity(intent);
-
     }
 
     public void upvote(){
