@@ -1,10 +1,5 @@
 package com.example.studybuddies;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,15 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
 public class MainMenuUI extends AppCompatActivity {
 
     Button createPostButton;
+    String postID;
 
     private FirebaseRecyclerOptions<Post> options;
     private FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter;
@@ -52,6 +52,16 @@ public class MainMenuUI extends AppCompatActivity {
                 mainMenuViewHolder.postTitle.setText(""+post.getPostTitle());
                 mainMenuViewHolder.postSubject.setText(""+post.getSubject());
                 mainMenuViewHolder.postRating.setText(""+post.getRatings());
+                postID = post.getPostID();
+
+                MainMenuViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(), ViewPost.class);
+                        intent.putExtra("postid", postID);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull
@@ -66,12 +76,11 @@ public class MainMenuUI extends AppCompatActivity {
 
         adapter.startListening();
         mainMenuRecyclerView.setAdapter(adapter);
+
     }
 
     public void openCreatePostUI(){
         Intent intent = new Intent(this, createPostUI.class);
         startActivity(intent);
     }
-
-
 }

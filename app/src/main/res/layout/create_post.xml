@@ -28,8 +28,8 @@
         android:maxLength="1000"
         android:maxLines="4"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/createPostTitle"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPostTitle" />
 
     <EditText
         android:id="@+id/postDescription"

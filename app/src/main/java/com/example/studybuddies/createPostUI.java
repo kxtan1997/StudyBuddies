@@ -1,7 +1,5 @@
 package com.example.studybuddies;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,7 +47,7 @@ public class createPostUI extends AppCompatActivity {
         String postDes = postDescription.getText().toString().trim();
         String title = postTitle.getText().toString().trim();
         String sub = subjects.getSelectedItem().toString();
-        double ratings = 0.0;
+        int ratings = 0;
 
         if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)){
             String id = databasePost.push().getKey();
