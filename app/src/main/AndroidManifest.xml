@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".createPostUI"></activity>
-        <activity android:name=".ViewPost"></activity>
+        <activity android:name=".ViewPostUI"></activity>
         <activity android:name=".MainMenuUI">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

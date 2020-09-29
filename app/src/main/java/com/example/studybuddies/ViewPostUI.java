@@ -15,17 +15,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewPost extends AppCompatActivity {
+public class ViewPostUI extends AppCompatActivity {
 
     Button submitButton,backButton,upVote,downVote;
-    String title,description,pID,subject;
-    int rating,pos;
+    int pos;
     TextView prating,ptitle,pdescription,psubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.view_post);
 
         prating = findViewById(R.id.postRating);
         ptitle = findViewById(R.id.postTitle);
@@ -36,13 +35,11 @@ public class ViewPost extends AppCompatActivity {
         upVote = findViewById(R.id.upVote);
         downVote = findViewById(R.id.downVote);
 
-        //get postID, passed from mainmenu
+        //get position of item, passed from MainMenuUI
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-           // pID = extras.getString("postid");
-            //System.out.println("pid" + pID);
             pos =  extras.getInt("pos");
-            System.out.println("pos" + pos);
+            //System.out.println("pos" + pos);
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {

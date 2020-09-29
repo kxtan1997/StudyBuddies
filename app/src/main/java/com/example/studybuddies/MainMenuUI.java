@@ -52,14 +52,12 @@ public class MainMenuUI extends AppCompatActivity {
                 mainMenuViewHolder.postTitle.setText(""+post.getPostTitle());
                 mainMenuViewHolder.postSubject.setText(""+post.getSubject());
                 mainMenuViewHolder.postRating.setText(""+post.getRatings());
-               // postID = post.getPostID();
-                //remove final from mainmenuviewholder if cannot work
+
                 MainMenuViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int pos = mainMenuViewHolder.getAdapterPosition();
-                        Intent intent = new Intent(view.getContext(), ViewPost.class);
-                        //intent.putExtra("postid", postID);
+                        Intent intent = new Intent(view.getContext(), ViewPostUI.class);
                         intent.putExtra("pos", pos);
                         startActivity(intent);
                     }
