@@ -11,10 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Recommended Posts"
+        android:text="@string/recommended_posts"
         android:textColor="#040404"
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/mainMenuSearch"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:autofillHints=""
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:hint="@string/search"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/mainMenuTitle" />
+
+    <Button
+        android:id="@+id/mainMenuSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mainMenuSearch"
+        app:layout_constraintTop_toBottomOf="@+id/mainMenuTitle" />
 
     <Button
         android:id="@+id/createPostButton"
@@ -25,7 +49,7 @@
         android:layout_marginEnd="281dp"
         android:layout_marginRight="281dp"
         android:layout_marginBottom="30dp"
-        android:text="Create post"
+        android:text="@string/create_post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">StudyBuddies</string>
+    <string name="create_post">Create Post</string>
+    <string name="enter_post_title_here">Enter post title here..</string>
+    <string name="enter_your_post_here">Enter your post here..</string>
+    <string name="post">Post</string>
+    <string name="recommended_posts">Recommended Posts</string>
+    <string name="search">Search…</string>
+    <string name="post_title">post Title</string>
+    <string name="post_subject">post subject</string>
+    <string name="rating">rating</string>
 
     <array name="subjects">
         <item>Introduction to Databases</item>
