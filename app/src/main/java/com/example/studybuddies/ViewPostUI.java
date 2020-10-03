@@ -19,6 +19,7 @@ public class ViewPostUI extends AppCompatActivity {
 
     Button submitButton,backButton,upVote,downVote;
     int pos;
+    String page;
     TextView prating,ptitle,pdescription,psubject;
 
     @Override
@@ -39,7 +40,7 @@ public class ViewPostUI extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             pos =  extras.getInt("pos");
-            //System.out.println("pos" + pos);
+            page = extras.getString("from");
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -63,28 +64,35 @@ public class ViewPostUI extends AppCompatActivity {
             }
         });
 
-        FirebaseDatabase.getInstance().getReference().child("posts")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Post p = null;
-                        Post np = null;
-                        ArrayList<Post> posts = new ArrayList<>();
-                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                            p = ds.getValue(Post.class);
-                            posts.add(p);
-                        }
-                        np = posts.get(pos);
+        if(page.equals("mainmenu")) {
+            FirebaseDatabase.getInstance().getReference().child("posts")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Post p = null;
+                            Post np = null;
+                            ArrayList<Post> posts = new ArrayList<>();
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                p = ds.getValue(Post.class);
+                                posts.add(p);
+                            }
+                            np = posts.get(pos);
 
-                        prating.setText(String.valueOf(np.ratings));
-                        ptitle.setText(np.postTitle);
-                        pdescription.setText(np.postDescription);
-                        psubject.setText(np.subject);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                            prating.setText(String.valueOf(np.ratings));
+                            ptitle.setText(np.postTitle);
+                            pdescription.setText(np.postDescription);
+                            psubject.setText(np.subject);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }else if(page.equals("search")){
+            //set post details here
+        }else{
+            //do something
+        }
     }
 
     public void back(){

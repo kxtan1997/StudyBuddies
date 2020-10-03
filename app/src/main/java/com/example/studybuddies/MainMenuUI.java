@@ -57,8 +57,10 @@ public class MainMenuUI extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         int pos = mainMenuViewHolder.getAdapterPosition();
+                        String page = "mainmenu";
                         Intent intent = new Intent(view.getContext(), ViewPostUI.class);
                         intent.putExtra("pos", pos);
+                        intent.putExtra("from", page);
                         startActivity(intent);
                     }
                 });
