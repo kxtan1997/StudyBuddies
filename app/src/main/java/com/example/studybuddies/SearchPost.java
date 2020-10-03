@@ -67,8 +67,6 @@ public class SearchPost extends AppCompatActivity {
 
     private void firebaseUserSearch(String searchText) {
 
-        Toast.makeText(SearchPost.this, "Started Search", Toast.LENGTH_SHORT).show();
-
         Query firebaseSearchQuery = mUserDatabase.orderByChild("postTitle").startAt(searchText).endAt(searchText + "\uf8ff");
 
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(firebaseSearchQuery,Post.class).build();
