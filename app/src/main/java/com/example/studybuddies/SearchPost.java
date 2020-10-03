@@ -73,22 +73,20 @@ public class SearchPost extends AppCompatActivity {
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(firebaseSearchQuery,Post.class).build();
         FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(PostViewHolder viewHolder,int position ,Post post) {
+            protected void onBindViewHolder(PostViewHolder viewHolder,int position, Post post) {
                 viewHolder.setDetails(getApplicationContext(), post.getPostTitle(), post.getPostDescription(), post.getSubject());
             }
 
             @NonNull
             @Override
             public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_search_list_layout,parent,false);
-
                 return new PostViewHolder(v);
             }
         };
 
+        firebaseRecyclerAdapter.startListening();
         mResultList.setAdapter(firebaseRecyclerAdapter);
-
     }
 
 
