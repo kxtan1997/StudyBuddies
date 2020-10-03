@@ -1,6 +1,7 @@
 package com.example.studybuddies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,15 +67,24 @@ public class SearchPost extends AppCompatActivity {
 
     private void firebaseUserSearch(String searchText) {
 
-        Toast.makeText(SearchPost.this, "Started Search", Toast.LENGTH_LONG).show();
+        Toast.makeText(SearchPost.this, "Started Search", Toast.LENGTH_SHORT).show();
 
         Query firebaseSearchQuery = mUserDatabase.orderByChild("postTitle").startAt(searchText).endAt(searchText + "\uf8ff");
 
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(firebaseSearchQuery,Post.class).build();
         FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(PostViewHolder viewHolder,int position, Post post) {
+            protected void onBindViewHolder(PostViewHolder viewHolder, final int position, final Post post) {
                 viewHolder.setDetails(getApplicationContext(), post.getPostTitle(), post.getPostDescription(), post.getSubject());
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(SearchPost.this, "Title: " + post.getPostTitle(), Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(SearchPost.this, MainActivity.class);
+//                        intent.putExtra("postTitle", post.getPostTitle());
+//                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull
@@ -92,15 +102,13 @@ public class SearchPost extends AppCompatActivity {
 
     // View Holder Class
 
-    public static class PostViewHolder extends RecyclerView.ViewHolder {
+    public class PostViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 
         public PostViewHolder(View itemView) {
             super(itemView);
-
             mView = itemView;
-
         }
 
         public void setDetails(Context ctx, String postTitle, String postDescription, String subject){
