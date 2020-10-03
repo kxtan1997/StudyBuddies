@@ -2,6 +2,7 @@ package com.example.studybuddies;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -35,7 +36,7 @@ public class SearchPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_search);
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference("posts");
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("posts");
 
 
         mSearchField = (EditText) findViewById(R.id.search_field);
@@ -79,7 +80,10 @@ public class SearchPost extends AppCompatActivity {
             @NonNull
             @Override
             public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return null;
+
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_search_list_layout,parent,false);
+
+                return new PostViewHolder(v);
             }
         };
 
