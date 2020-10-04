@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class ViewPostUI extends AppCompatActivity {
     int pos;
     String page, pid;
     TextView pRating, pTitle, pDescription, pSubject;
+    static DatabaseReference current_post = null; //get firebase reference of current post to facilitate updating of it
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +51,14 @@ public class ViewPostUI extends AppCompatActivity {
         upVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                upvote();
+                upVote();
             }
         });
 
         downVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                downvote();
+                downVote();
             }
         });
 
@@ -71,6 +75,9 @@ public class ViewPostUI extends AppCompatActivity {
                                 posts.add(p);
                             }
                             np = posts.get(pos);
+
+                            //set firebase reference of current post
+                            current_post= FirebaseDatabase.getInstance().getReference().child("posts").child(np.getPostID());
 
                             pRating.setText(String.valueOf(np.ratings));
                             pTitle.setText(np.postTitle);
@@ -118,11 +125,26 @@ public class ViewPostUI extends AppCompatActivity {
         }
     }
 
-    public void upvote() {
+    public void upVote() {
+        current_post.child("ratings").setValue(ServerValue.increment(1));
+        Toast.makeText(getApplicationContext(), "Upvoted!", Toast.LENGTH_SHORT).show();
 
+        TextView pRating;
+        pRating = findViewById(R.id.postRating);
+        int value = Integer.parseInt(pRating.getText().toString());
+        value += 1;
+        pRating.setText(String.valueOf(value));
     }
 
-    public void downvote() {
+    public void downVote() {
+        current_post.child("ratings").setValue(ServerValue.increment(-1));
+        Toast.makeText(getApplicationContext(),"Downvoted!",Toast.LENGTH_SHORT).show();
+
+        TextView pRating;
+        pRating = findViewById(R.id.postRating);
+        int value = Integer.parseInt(pRating.getText().toString());
+        value -=1;
+        pRating.setText(String.valueOf(value));
 
     }
 
