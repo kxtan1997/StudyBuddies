@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "398911019702",
+    "firebase_url": "https://studybuddies-b79ff.firebaseio.com",
+    "project_id": "studybuddies-b79ff",
+    "storage_bucket": "studybuddies-b79ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398911019702:android:8e5b668efbf407829be417",
+        "android_client_info": {
+          "package_name": "com.example.studybuddies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398911019702-4ec5s5abi8uo4kv1lhmipkddmkqqar99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studybuddies",
+            "certificate_hash": "344ab60194c61b32d96c06355112654f048f6d21"
+          }
+        },
+        {
+          "client_id": "398911019702-nci3r0dted044j0ceig9eieeun0dcblq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studybuddies",
+            "certificate_hash": "23176b2828f407915697f731005a168b8c7de3b6"
+          }
+        },
+        {
+          "client_id": "398911019702-6ib7nqvhqeodbjm7691feg3600uus262.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYHFFXDUe2HUzWUJvhgBhhrpQB5pNLRoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398911019702-6ib7nqvhqeodbjm7691feg3600uus262.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

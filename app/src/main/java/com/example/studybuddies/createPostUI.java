@@ -47,7 +47,7 @@ public class createPostUI extends AppCompatActivity {
         String postDes = postDescription.getText().toString().trim();
         String title = postTitle.getText().toString().trim();
         String sub = subjects.getSelectedItem().toString();
-        double ratings = 0.0;
+        int ratings = 0;
 
         if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)){
             String id = databasePost.push().getKey();

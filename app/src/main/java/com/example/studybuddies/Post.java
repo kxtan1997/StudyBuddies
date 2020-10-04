@@ -8,13 +8,13 @@ public class Post {
     String postTitle;
     String postDescription;
     String subject;
-    double ratings;
+    int ratings;
 
     public Post(){
 
     }
 
-    public Post(String postID, String postTitle, String postDescription, String subject, double ratings){
+    public Post(String postID, String postTitle, String postDescription, String subject, int ratings){
         this.postID = postID;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
@@ -38,7 +38,7 @@ public class Post {
         return subject;
     }
 
-    public double getRatings(){
+    public int getRatings(){
         return ratings;
     }
 }
