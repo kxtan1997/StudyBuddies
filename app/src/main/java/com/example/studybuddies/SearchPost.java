@@ -77,10 +77,11 @@ public class SearchPost extends AppCompatActivity {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(SearchPost.this, "Title: " + post.getPostTitle(), Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(SearchPost.this, MainActivity.class);
-//                        intent.putExtra("postTitle", post.getPostTitle());
-//                        startActivity(intent);
+                        Intent intent = new Intent(SearchPost.this, MainActivity.class);
+                        intent.putExtra("pos", 0);
+                        intent.putExtra("page", "search");
+                        intent.putExtra("pid", post.getPostID());
+                        startActivity(intent);
                     }
                 });
             }
