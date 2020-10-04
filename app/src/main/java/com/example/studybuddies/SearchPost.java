@@ -79,7 +79,7 @@ public class SearchPost extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(SearchPost.this, MainActivity.class);
                         intent.putExtra("pos", 0);
-                        intent.putExtra("page", "search");
+                        intent.putExtra("from", "search");
                         intent.putExtra("pid", post.getPostID());
                         startActivity(intent);
                     }
