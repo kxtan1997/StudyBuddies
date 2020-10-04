@@ -17,20 +17,6 @@
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/mainMenuSearch"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/search"
-        android:inputType="textPersonName"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainMenuTitle" />
-
     <Button
         android:id="@+id/mainMenuSearchButton"
         android:layout_width="wrap_content"
@@ -38,7 +24,6 @@
         android:layout_marginTop="15dp"
         android:text="@string/search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mainMenuSearch"
         app:layout_constraintTop_toBottomOf="@+id/mainMenuTitle" />
 
     <Button

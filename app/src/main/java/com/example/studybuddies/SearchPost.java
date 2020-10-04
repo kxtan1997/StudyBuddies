@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,11 +58,6 @@ public class SearchPost extends AppCompatActivity {
         });
 
     }
-  /*  Post.class,
-    R.layout.post_search_list_layout,
-    PostViewHolder.class,
-    firebaseSearchQuery*/
-
 
     private void firebaseUserSearch(String searchText) {
 
@@ -77,9 +71,9 @@ public class SearchPost extends AppCompatActivity {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(SearchPost.this, MainActivity.class);
+                        Intent intent = new Intent(SearchPost.this, ViewPostUI.class);
                         intent.putExtra("pos", 0);
-                        intent.putExtra("page", "search");
+                        intent.putExtra("from", "search");
                         intent.putExtra("pid", post.getPostID());
                         startActivity(intent);
                     }

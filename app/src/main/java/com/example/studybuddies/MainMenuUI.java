@@ -66,6 +66,7 @@ public class MainMenuUI extends AppCompatActivity {
                         Intent intent = new Intent(view.getContext(), ViewPostUI.class);
                         intent.putExtra("pos", pos);
                         intent.putExtra("from", page);
+                        intent.putExtra("pid", page); //to be change
                         startActivity(intent);
                     }
                 });
@@ -87,8 +88,8 @@ public class MainMenuUI extends AppCompatActivity {
     }
 
     public void openSearchPostUI(){
-        //Intent intent = new Intent(this, SearchPost.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, SearchPost.class);
+        startActivity(intent);
     }
 
     public void openCreatePostUI() {

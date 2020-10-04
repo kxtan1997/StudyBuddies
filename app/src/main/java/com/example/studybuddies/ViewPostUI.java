@@ -1,6 +1,5 @@
 package com.example.studybuddies;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 
 public class ViewPostUI extends AppCompatActivity {
 
-    Button submitButton, backButton, upVote, downVote;
+    Button submitButton, upVote, downVote;
     int pos;
     String page, pid;
     TextView pRating, pTitle, pDescription, pSubject;
@@ -33,7 +32,7 @@ public class ViewPostUI extends AppCompatActivity {
         pDescription = findViewById(R.id.postDescription);
         pSubject = findViewById(R.id.postSubject);
         submitButton = findViewById(R.id.submitButton);
-        backButton = findViewById(R.id.backButton);
+        //backButton = findViewById(R.id.backButton);
         upVote = findViewById(R.id.upVote);
         downVote = findViewById(R.id.downVote);
 
@@ -44,13 +43,6 @@ public class ViewPostUI extends AppCompatActivity {
             page = extras.getString("from");
             pid = extras.getString("pid");
         }
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back();
-            }
-        });
 
         upVote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,11 +116,6 @@ public class ViewPostUI extends AppCompatActivity {
         } else {
             //TODO do something
         }
-    }
-
-    public void back() {
-        Intent intent = new Intent(this, MainMenuUI.class);
-        startActivity(intent);
     }
 
     public void upvote() {
