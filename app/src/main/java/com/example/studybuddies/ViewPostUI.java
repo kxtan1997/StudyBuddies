@@ -20,7 +20,7 @@ public class ViewPostUI extends AppCompatActivity {
 
     Button submitButton, backButton, upVote, downVote;
     int pos;
-    String page;
+    String page, pid;
     TextView pRating, pTitle, pDescription, pSubject;
 
     @Override
@@ -42,6 +42,7 @@ public class ViewPostUI extends AppCompatActivity {
         if (extras != null) {
             pos = extras.getInt("pos");
             page = extras.getString("from");
+            pid = extras.getString("pid");
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +91,36 @@ public class ViewPostUI extends AppCompatActivity {
                         }
                     });
         } else if (page.equals("search")) {
-            //TODO set post details here
+            FirebaseDatabase.getInstance().getReference().child("posts")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Post p;
+                            ArrayList<Post> posts = new ArrayList<>();
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                p = ds.getValue(Post.class);
+                                posts.add(p);
+                            }
+
+                            System.out.println("pid: " + pid);
+                            for(int i = 0; i < posts.size(); i++)
+                            {
+                                String postid = (posts.get(i).getPostID());
+                                System.out.println("pid inside loop: " + postid);
+                                if(postid.equals(pid)){
+                                    pRating.setText(String.valueOf(posts.get(i).getRatings()));
+                                    pTitle.setText(posts.get(i).getPostTitle());
+                                    pDescription.setText(posts.get(i).getPostDescription());
+                                    pSubject.setText(posts.get(i).getSubject());
+                                    break;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
         } else {
             //TODO do something
         }

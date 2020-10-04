@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainMenuUI extends AppCompatActivity {
 
-    Button createPostButton;
+    Button createPostButton, searchButton;
 
     private FirebaseRecyclerOptions<Post> options;
 
@@ -30,6 +30,7 @@ public class MainMenuUI extends AppCompatActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("posts");
 
+        searchButton = findViewById(R.id.mainMenuSearchButton);
         createPostButton = findViewById(R.id.createPostButton);
         RecyclerView mainMenuRecyclerView = findViewById(R.id.mainMenuRecyclerView);
         mainMenuRecyclerView.setHasFixedSize(true);
@@ -39,6 +40,13 @@ public class MainMenuUI extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openCreatePostUI();
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSearchPostUI();
             }
         });
 
@@ -76,6 +84,11 @@ public class MainMenuUI extends AppCompatActivity {
         adapter.startListening();
         mainMenuRecyclerView.setAdapter(adapter);
 
+    }
+
+    public void openSearchPostUI(){
+        //Intent intent = new Intent(this, SearchPost.class);
+        //startActivity(intent);
     }
 
     public void openCreatePostUI() {
