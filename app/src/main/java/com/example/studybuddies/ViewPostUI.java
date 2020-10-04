@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,20 +18,20 @@ import java.util.ArrayList;
 
 public class ViewPostUI extends AppCompatActivity {
 
-    Button submitButton,backButton,upVote,downVote;
+    Button submitButton, backButton, upVote, downVote;
     int pos;
     String page;
-    TextView prating,ptitle,pdescription,psubject;
+    TextView pRating, pTitle, pDescription, pSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_post);
 
-        prating = findViewById(R.id.postRating);
-        ptitle = findViewById(R.id.postTitle);
-        pdescription = findViewById(R.id.postDescription);
-        psubject = findViewById(R.id.postSubject);
+        pRating = findViewById(R.id.postRating);
+        pTitle = findViewById(R.id.postTitle);
+        pDescription = findViewById(R.id.postDescription);
+        pSubject = findViewById(R.id.postSubject);
         submitButton = findViewById(R.id.submitButton);
         backButton = findViewById(R.id.backButton);
         upVote = findViewById(R.id.upVote);
@@ -39,7 +40,7 @@ public class ViewPostUI extends AppCompatActivity {
         //get position of item, passed from MainMenuUI
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            pos =  extras.getInt("pos");
+            pos = extras.getInt("pos");
             page = extras.getString("from");
         }
 
@@ -64,13 +65,13 @@ public class ViewPostUI extends AppCompatActivity {
             }
         });
 
-        if(page.equals("mainmenu")) {
+        if (page.equals("mainMenu")) {
             FirebaseDatabase.getInstance().getReference().child("posts")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Post p = null;
-                            Post np = null;
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Post p;
+                            Post np;
                             ArrayList<Post> posts = new ArrayList<>();
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 p = ds.getValue(Post.class);
@@ -78,33 +79,33 @@ public class ViewPostUI extends AppCompatActivity {
                             }
                             np = posts.get(pos);
 
-                            prating.setText(String.valueOf(np.ratings));
-                            ptitle.setText(np.postTitle);
-                            pdescription.setText(np.postDescription);
-                            psubject.setText(np.subject);
+                            pRating.setText(String.valueOf(np.ratings));
+                            pTitle.setText(np.postTitle);
+                            pDescription.setText(np.postDescription);
+                            pSubject.setText(np.subject);
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
-        }else if(page.equals("search")){
-            //set post details here
-        }else{
-            //do something
+        } else if (page.equals("search")) {
+            //TODO set post details here
+        } else {
+            //TODO do something
         }
     }
 
-    public void back(){
+    public void back() {
         Intent intent = new Intent(this, MainMenuUI.class);
         startActivity(intent);
     }
 
-    public void upvote(){
+    public void upvote() {
 
     }
 
-    public void downvote(){
+    public void downvote() {
 
     }
 

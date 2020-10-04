@@ -38,32 +38,30 @@ public class createPostUI extends AppCompatActivity {
         postValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPosttoDB();
+                addPostToDB();
             }
         });
     }
 
-    private void addPosttoDB(){
+    private void addPostToDB() {
         String postDes = postDescription.getText().toString().trim();
         String title = postTitle.getText().toString().trim();
         String sub = subjects.getSelectedItem().toString();
         int ratings = 0;
 
-        if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)){
+        if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)) {
             String id = databasePost.push().getKey();
 
             Post post = new Post(id, title, postDes, sub, ratings);
             assert id != null;
             databasePost.child(id).setValue(post);
 
-            Toast.makeText(this,"Post created", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Post created", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, MainMenuUI.class);
             startActivity(intent);
-        }
-
-        else{
-            Toast.makeText(this,"This field cannot be empty", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "This field cannot be empty", Toast.LENGTH_LONG).show();
         }
     }
 }

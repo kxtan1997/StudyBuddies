@@ -22,15 +22,15 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:ems="10"
         android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/enter_post_title_here"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="1000"
         android:maxLines="4"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/createPostTitle"
-        android:hint="@string/enter_post_title_here"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPostTitle"
         tools:layout_editor_absoluteX="0dp" />
 
     <EditText
@@ -38,13 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:ems="10"
         android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/enter_your_post_here"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="4"
         app:layout_constraintTop_toBottomOf="@+id/postTitle"
-        android:hint="@string/enter_your_post_here"
         tools:layout_editor_absoluteX="-16dp" />
 
     <Spinner

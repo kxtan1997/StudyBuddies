@@ -22,13 +22,13 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:ems="10"
         android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/search"
         android:inputType="textPersonName"
         android:textColor="#000000"
-        android:hint="@string/search"
-        app:layout_constraintStart_toStartOf="parent"
         android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainMenuTitle" />
 
     <Button

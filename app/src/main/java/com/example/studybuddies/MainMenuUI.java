@@ -20,11 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainMenuUI extends AppCompatActivity {
 
     Button createPostButton;
-    String postID;
 
     private FirebaseRecyclerOptions<Post> options;
-    private FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter;
-    private RecyclerView mainMenuRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +31,7 @@ public class MainMenuUI extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("posts");
 
         createPostButton = findViewById(R.id.createPostButton);
-        mainMenuRecyclerView = findViewById(R.id.mainMenuRecyclerView);
+        RecyclerView mainMenuRecyclerView = findViewById(R.id.mainMenuRecyclerView);
         mainMenuRecyclerView.setHasFixedSize(true);
         mainMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -45,19 +42,19 @@ public class MainMenuUI extends AppCompatActivity {
             }
         });
 
-        options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(reference,Post.class).build();
-        adapter = new FirebaseRecyclerAdapter<Post, MainMenuViewHolder>(options) {
+        options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(reference, Post.class).build();
+        FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter = new FirebaseRecyclerAdapter<Post, MainMenuViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull final MainMenuViewHolder mainMenuViewHolder, int i, @NonNull Post post) {
-                mainMenuViewHolder.postTitle.setText(""+post.getPostTitle());
-                mainMenuViewHolder.postSubject.setText(""+post.getSubject());
-                mainMenuViewHolder.postRating.setText(""+post.getRatings());
+                mainMenuViewHolder.postTitle.setText(post.getPostTitle());
+                mainMenuViewHolder.postSubject.setText(post.getSubject());
+                mainMenuViewHolder.postRating.setText(Integer.toString(post.getRatings()));
 
                 MainMenuViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int pos = mainMenuViewHolder.getAdapterPosition();
-                        String page = "mainmenu";
+                        String page = "mainMenu";
                         Intent intent = new Intent(view.getContext(), ViewPostUI.class);
                         intent.putExtra("pos", pos);
                         intent.putExtra("from", page);
@@ -70,7 +67,7 @@ public class MainMenuUI extends AppCompatActivity {
             @Override
             public MainMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view_mainmenu_layout,parent,false);
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view_mainmenu_layout, parent, false);
 
                 return new MainMenuViewHolder(v);
             }
@@ -81,7 +78,7 @@ public class MainMenuUI extends AppCompatActivity {
 
     }
 
-    public void openCreatePostUI(){
+    public void openCreatePostUI() {
         Intent intent = new Intent(this, createPostUI.class);
         startActivity(intent);
     }

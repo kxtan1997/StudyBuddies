@@ -1,14 +1,29 @@
 <resources>
     <string name="app_name">StudyBuddies</string>
     <string name="create_post">Create Post</string>
-    <string name="enter_post_title_here">Enter post title here..</string>
-    <string name="enter_your_post_here">Enter your post here..</string>
+    <string name="enter_post_title_here">Enter post title here…</string>
+    <string name="enter_your_post_here">Enter your post here…</string>
     <string name="post">Post</string>
     <string name="recommended_posts">Recommended Posts</string>
     <string name="search">Search…</string>
-    <string name="post_title">post Title</string>
-    <string name="post_subject">post subject</string>
-    <string name="rating">rating</string>
+    <string name="post_title">Post Title</string>
+    <string name="post_subject">Post subject</string>
+    <string name="rating">Rating</string>
+    <string name="posted_by">Posted By:</string>
+    <string name="account_name_here">Account Name Here</string>
+    <string name="ratingColon">Rating:</string>
+    <string name="_0">0</string>
+    <string name="title">Title:</string>
+    <string name="title_here">Title Here</string>
+    <string name="subject">Subject:</string>
+    <string name="subject_here">Subject Here</string>
+    <string name="description">Description:</string>
+    <string name="in_descriptive_writing_the_author_does_not_just_tell_the_reader_what_was_seen_felt_tested_smelled_or_heard_rather_the_author_describes_something_from_their_own_experience_and_through_careful_choice_of_words_and_phrasing_makes_it_seem_real_descriptive_writing_is_vivid_colorful_and_detailed">In descriptive writing, the author does not just tell the reader what was seen, felt, tested, smelled, or heard. Rather, the author describes something from their own experience and, through careful choice of words and phrasing, makes it seem real. Descriptive writing is vivid, colorful, and detailed.</string>
+    <string name="comments">Comments:</string>
+    <string name="leave_a_comment">Leave a comment…</string>
+    <string name="submit">Submit</string>
+    <string name="comment_here">Comment Here</string>
+    <string name="profile">Profile</string>
 
     <array name="subjects">
         <item>Introduction to Databases</item>
