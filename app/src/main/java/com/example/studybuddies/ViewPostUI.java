@@ -159,8 +159,6 @@ public class ViewPostUI extends AppCompatActivity {
         toast = Toast.makeText(getApplicationContext(), "Upvoted!", Toast.LENGTH_SHORT);
         toast.show();
 
-        TextView pRating;
-        pRating = findViewById(R.id.postRating);
         int value = Integer.parseInt(pRating.getText().toString());
         value += 1;
         pRating.setText(String.valueOf(value));
@@ -173,8 +171,6 @@ public class ViewPostUI extends AppCompatActivity {
         toast = Toast.makeText(getApplicationContext(), "Downvoted!", Toast.LENGTH_SHORT);
         toast.show();
 
-        TextView pRating;
-        pRating = findViewById(R.id.postRating);
         int value = Integer.parseInt(pRating.getText().toString());
         value -= 1;
         pRating.setText(String.valueOf(value));
@@ -208,7 +204,19 @@ public class ViewPostUI extends AppCompatActivity {
         FirebaseRecyclerOptions<Comment> options = new FirebaseRecyclerOptions.Builder<Comment>().setQuery(commentsQuery, Comment.class).build();
         FirebaseRecyclerAdapter<Comment, CommentViewHolder> adapter = new FirebaseRecyclerAdapter<Comment, CommentViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(CommentViewHolder commentViewHolder, int i, Comment comment) {
+            protected void onBindViewHolder(final CommentViewHolder commentViewHolder, int i, final Comment comment) {
+                commentViewHolder.commentUpVote.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        commentViewHolder.upVoteComment(comment);
+                    }
+                });
+                commentViewHolder.commentDownVote.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        commentViewHolder.downVoteComment(comment);
+                    }
+                });
                 commentViewHolder.commentSubject.setText(comment.getSubject());
                 commentViewHolder.commentRating.setText(String.format(Locale.ENGLISH, "%d", comment.getRating()));
             }
@@ -224,7 +232,7 @@ public class ViewPostUI extends AppCompatActivity {
         commentsRecyclerView.setAdapter(adapter);
     }
 
-    public static class CommentViewHolder extends RecyclerView.ViewHolder {
+    public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         TextView commentSubject, commentRating;
         Button commentUpVote, commentDownVote;
@@ -238,6 +246,30 @@ public class ViewPostUI extends AppCompatActivity {
             commentRating = itemView.findViewById(R.id.commentRating);
             commentUpVote = itemView.findViewById(R.id.commentUpVote);
             commentDownVote = itemView.findViewById(R.id.commentDownVote);
+        }
+
+        public void upVoteComment(Comment comment) {
+            current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(1));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Upvoted comment!", Toast.LENGTH_SHORT);
+            toast.show();
+
+            int value = Integer.parseInt(commentRating.getText().toString());
+            value += 1;
+            commentRating.setText(String.valueOf(value));
+        }
+
+        public void downVoteComment(Comment comment) {
+            current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(-1));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Downvoted comment!", Toast.LENGTH_SHORT);
+            toast.show();
+
+            int value = Integer.parseInt(commentRating.getText().toString());
+            value -= 1;
+            commentRating.setText(String.valueOf(value));
         }
     }
 }
