@@ -103,7 +103,7 @@ public class ViewPostUI extends AppCompatActivity {
                             np = posts.get(pos);
 
                             //set firebase reference of current post
-                            current_post = FirebaseDatabase.getInstance().getReference().child("posts").child(np.getPostID());
+                            current_post = FirebaseDatabase.getInstance().getReference().child("posts").child(pid);
 
                             pRating.setText(String.valueOf(np.rating));
                             pTitle.setText(np.postTitle);
@@ -129,11 +129,12 @@ public class ViewPostUI extends AppCompatActivity {
                                 posts.add(p);
                             }
 
-                            System.out.println("pid: " + pid);
                             for (int i = 0; i < posts.size(); i++) {
                                 String postid = (posts.get(i).getPostID());
-                                System.out.println("pid inside loop: " + postid);
                                 if (postid.equals(pid)) {
+
+                                    current_post = FirebaseDatabase.getInstance().getReference().child("posts").child(pid);
+
                                     pRating.setText(String.valueOf(posts.get(i).getRating()));
                                     pTitle.setText(posts.get(i).getPostTitle());
                                     pDescription.setText(posts.get(i).getPostDescription());
@@ -141,6 +142,8 @@ public class ViewPostUI extends AppCompatActivity {
                                     break;
                                 }
                             }
+
+                            loadComments();
                         }
 
                         @Override
