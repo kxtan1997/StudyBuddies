@@ -179,6 +179,7 @@ public class ViewPostUI extends AppCompatActivity {
     @SuppressLint("ShowToast")
     public void postComment() {
         String subject = commentInput.getText().toString().trim();
+        commentInput.getText().clear();
 
         if (!TextUtils.isEmpty(subject)) {
             String id = current_post.child("comments").push().getKey();

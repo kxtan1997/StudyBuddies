@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,7 @@ public class MainMenuUI extends AppCompatActivity {
         RecyclerView mainMenuRecyclerView = findViewById(R.id.mainMenuRecyclerView);
         mainMenuRecyclerView.setHasFixedSize(true);
         mainMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mainMenuRecyclerView.addItemDecoration(new DividerItemDecoration(mainMenuRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
         createPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
