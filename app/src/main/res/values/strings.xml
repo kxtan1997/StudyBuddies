@@ -24,6 +24,12 @@
     <string name="submit">Submit</string>
     <string name="comment_here">Comment Here</string>
     <string name="profile">Profile</string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit">Lorem ipsum dolor sit amet, consectetur adipiscing elit</string>
+    <string name="comment_subject_here">Comment subject here</string>
+    <string name="search_button">Search Button</string>
+    <string name="search_here">Search here</string>
+    <string name="title_string">Title</string>
+    <string name="search_string">Search</string>
 
     <array name="subjects">
         <item>Introduction to Databases</item>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/postView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl1"
@@ -131,11 +133,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="250dp"
                 android:layout_marginRight="250dp"
-                android:layout_marginBottom="300dp"
                 android:text="@string/title"
                 android:textStyle="bold"
                 app:fontFamily="monospace"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,17 +145,13 @@
                 android:id="@+id/postTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginLeft="9dp"
                 android:layout_marginEnd="163dp"
                 android:layout_marginRight="163dp"
                 android:layout_marginBottom="300dp"
                 android:text="@string/title_here"
                 app:fontFamily="monospace"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.252"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintStart_toStartOf="@id/postSubject"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -195,7 +191,6 @@
                 android:text="@string/description"
                 android:textStyle="bold"
                 app:fontFamily="monospace"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -237,46 +232,56 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl3"
-            android:layout_width="400dp"
-            android:layout_height="63dp"
-            android:background="#E4E4E2">
-
-            <EditText
-                android:id="@+id/commentInput"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/comment_here"
-                android:inputType="textPersonName"
-                android:text="@string/leave_a_comment"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/submitButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/submit"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/commentInput"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
-</ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#E4E4E2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <EditText
+            android:id="@+id/commentInput"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/leave_a_comment"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/submit"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/commentInput"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

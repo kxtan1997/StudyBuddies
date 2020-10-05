@@ -1,6 +1,5 @@
 package com.example.studybuddies;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,10 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class SearchPost extends AppCompatActivity {
+public class SearchPostUI extends AppCompatActivity {
 
     private EditText mSearchField;
-    private ImageButton mSearchBtn;
 
     private RecyclerView mResultList;
 
@@ -38,9 +36,8 @@ public class SearchPost extends AppCompatActivity {
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("posts");
 
-
         mSearchField = (EditText) findViewById(R.id.search_field);
-        mSearchBtn = (ImageButton) findViewById(R.id.search_btn);
+        ImageButton mSearchBtn = (ImageButton) findViewById(R.id.search_btn);
 
         mResultList = (RecyclerView) findViewById(R.id.result_list);
         mResultList.setHasFixedSize(true);
@@ -49,29 +46,25 @@ public class SearchPost extends AppCompatActivity {
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String searchText = mSearchField.getText().toString();
-
                 firebaseUserSearch(searchText);
-
             }
         });
-
     }
 
     private void firebaseUserSearch(String searchText) {
 
         Query firebaseSearchQuery = mUserDatabase.orderByChild("postTitle").startAt(searchText).endAt(searchText + "\uf8ff");
 
-        options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(firebaseSearchQuery,Post.class).build();
+        options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(firebaseSearchQuery, Post.class).build();
         FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
             @Override
             protected void onBindViewHolder(PostViewHolder viewHolder, final int position, final Post post) {
-                viewHolder.setDetails(getApplicationContext(), post.getPostTitle(), post.getPostDescription(), post.getSubject());
+                viewHolder.setDetails(post.getPostTitle(), post.getPostDescription(), post.getSubject());
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(SearchPost.this, ViewPostUI.class);
+                        Intent intent = new Intent(SearchPostUI.this, ViewPostUI.class);
                         intent.putExtra("pos", 0);
                         intent.putExtra("from", "search");
                         intent.putExtra("pid", post.getPostID());
@@ -83,7 +76,7 @@ public class SearchPost extends AppCompatActivity {
             @NonNull
             @Override
             public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_search_list_layout,parent,false);
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_search_view_holder, parent, false);
                 return new PostViewHolder(v);
             }
         };
@@ -95,7 +88,7 @@ public class SearchPost extends AppCompatActivity {
 
     // View Holder Class
 
-    public class PostViewHolder extends RecyclerView.ViewHolder {
+    public static class PostViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 
@@ -104,7 +97,7 @@ public class SearchPost extends AppCompatActivity {
             mView = itemView;
         }
 
-        public void setDetails(Context ctx, String postTitle, String postDescription, String subject){
+        public void setDetails(String postTitle, String postDescription, String subject) {
 
             TextView post_title = (TextView) mView.findViewById(R.id.postTitle_text);
             TextView post_description = (TextView) mView.findViewById(R.id.postDescription_text);
@@ -115,5 +108,4 @@ public class SearchPost extends AppCompatActivity {
             post_subject.setText(subject);
         }
     }
-
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,10 +9,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:fontFamily="@font/nunito_semibold"
-        android:text="Title"
+        android:text="@string/title_string"
         android:textColor="#555555"
         android:textSize="16sp" />
 
@@ -22,11 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/postTitle_text"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:fontFamily="@font/nunito_semibold"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit"
         android:textColor="#999999"
         android:textSize="14sp" />
 
@@ -36,10 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/postDescription_text"
         android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="5dp"
         android:fontFamily="@font/nunito_semibold"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        android:layout_marginTop="5dp"
         android:textColor="#999999"
-        android:textSize="10sp" />
+        android:layout_marginEnd="30dp"
+        android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit"
+        android:textSize="12sp" />
 </RelativeLayout>

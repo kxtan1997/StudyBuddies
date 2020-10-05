@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
+
 public class MainMenuUI extends AppCompatActivity {
 
     Button createPostButton, searchButton;
@@ -26,7 +29,7 @@ public class MainMenuUI extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_menu_ui);
+        setContentView(R.layout.activity_main_menu_ui);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("posts");
 
@@ -56,11 +59,11 @@ public class MainMenuUI extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull final MainMenuViewHolder mainMenuViewHolder, int i, @NonNull final Post post) {
                 mainMenuViewHolder.postTitle.setText(post.getPostTitle());
                 mainMenuViewHolder.postSubject.setText(post.getSubject());
-                mainMenuViewHolder.postRating.setText(Integer.toString(post.getRatings()));
+                mainMenuViewHolder.postRating.setText(String.format(Locale.ENGLISH, "%d", post.getRating()));
 
                 final String pid = post.getPostID();
 
-                MainMenuViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                mainMenuViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int pos = mainMenuViewHolder.getAdapterPosition();
@@ -78,7 +81,7 @@ public class MainMenuUI extends AppCompatActivity {
             @Override
             public MainMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view_mainmenu_layout, parent, false);
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_menu_view_holder, parent, false);
 
                 return new MainMenuViewHolder(v);
             }
@@ -86,16 +89,30 @@ public class MainMenuUI extends AppCompatActivity {
 
         adapter.startListening();
         mainMenuRecyclerView.setAdapter(adapter);
-
     }
 
-    public void openSearchPostUI(){
-        Intent intent = new Intent(this, SearchPost.class);
+    public void openSearchPostUI() {
+        Intent intent = new Intent(this, SearchPostUI.class);
         startActivity(intent);
     }
 
     public void openCreatePostUI() {
-        Intent intent = new Intent(this, createPostUI.class);
+        Intent intent = new Intent(this, CreatePostUI.class);
         startActivity(intent);
+    }
+
+    public static class MainMenuViewHolder extends RecyclerView.ViewHolder {
+
+        TextView postTitle, postSubject, postRating;
+        View mView;
+
+        public MainMenuViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+
+            postTitle = itemView.findViewById(R.id.singlePostTitle);
+            postSubject = itemView.findViewById(R.id.singlePostSubject);
+            postRating = itemView.findViewById(R.id.singleRating);
+        }
     }
 }

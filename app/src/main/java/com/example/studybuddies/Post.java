@@ -1,5 +1,7 @@
 package com.example.studybuddies;
 
+import java.util.HashMap;
+
 public class Post {
     //TODO create string variable for user ID
     //TODO comments array to be added
@@ -8,17 +10,19 @@ public class Post {
     String postTitle;
     String postDescription;
     String subject;
-    int ratings;
+    HashMap<String, Comment> comments;
+    int rating;
 
     public Post() {
     }
 
-    public Post(String postID, String postTitle, String postDescription, String subject, int ratings) {
+    public Post(String postID, String postTitle, String postDescription, String subject, HashMap<String, Comment> comments, int rating) {
         this.postID = postID;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.subject = subject;
-        this.ratings = ratings;
+        this.comments = comments;
+        this.rating = rating;
     }
 
     public String getPostID() {
@@ -37,7 +41,11 @@ public class Post {
         return subject;
     }
 
-    public int getRatings() {
-        return ratings;
+    public HashMap<String, Comment> getComments() {
+        return comments;
+    }
+
+    public int getRating() {
+        return rating;
     }
 }
