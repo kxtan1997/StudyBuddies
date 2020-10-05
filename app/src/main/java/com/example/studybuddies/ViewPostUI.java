@@ -153,7 +153,7 @@ public class ViewPostUI extends AppCompatActivity {
     }
 
     public void upVote() {
-        current_post.child("ratings").setValue(ServerValue.increment(1));
+        current_post.child("rating").setValue(ServerValue.increment(1));
         if (toast != null)
             toast.cancel();
         toast = Toast.makeText(getApplicationContext(), "Upvoted!", Toast.LENGTH_SHORT);
@@ -167,7 +167,7 @@ public class ViewPostUI extends AppCompatActivity {
     }
 
     public void downVote() {
-        current_post.child("ratings").setValue(ServerValue.increment(-1));
+        current_post.child("rating").setValue(ServerValue.increment(-1));
         if (toast != null)
             toast.cancel();
         toast = Toast.makeText(getApplicationContext(), "Downvoted!", Toast.LENGTH_SHORT);

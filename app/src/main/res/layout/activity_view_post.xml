@@ -67,8 +67,7 @@
                 android:textStyle="bold"
                 app:fontFamily="monospace"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/postRating"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
                 app:layout_constraintVertical_bias="0.205" />
 
@@ -76,16 +75,12 @@
                 android:id="@+id/postRating"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="22dp"
+                android:layout_marginBottom="18dp"
                 android:text="@string/_0"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintStart_toStartOf="@+id/posterName"
                 app:layout_constraintTop_toBottomOf="@+id/posterName"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.205" />
 
             <Button
                 android:id="@+id/downVote"
@@ -101,7 +96,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postRating"
-                app:layout_constraintTop_toBottomOf="@+id/posterName" />
+                app:layout_constraintTop_toBottomOf="@+id/posterName"
+                app:layout_constraintVertical_bias="0.205" />
 
             <Button
                 android:id="@+id/upVote"
@@ -115,7 +111,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/postRating"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/posterName" />
+                app:layout_constraintTop_toBottomOf="@+id/posterName"
+                app:layout_constraintVertical_bias="0.205" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
