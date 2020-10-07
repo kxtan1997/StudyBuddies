@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class MainMenuUI extends AppCompatActivity {
 
-    Button createPostButton, searchButton;
+    Button createPostButton, searchButton, viewProfileButton;
 
     private FirebaseRecyclerOptions<Post> options;
 
@@ -36,6 +36,7 @@ public class MainMenuUI extends AppCompatActivity {
 
         searchButton = findViewById(R.id.mainMenuSearchButton);
         createPostButton = findViewById(R.id.createPostButton);
+        viewProfileButton = findViewById(R.id.viewProfileButton);
         RecyclerView mainMenuRecyclerView = findViewById(R.id.mainMenuRecyclerView);
         mainMenuRecyclerView.setHasFixedSize(true);
         mainMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -52,6 +53,13 @@ public class MainMenuUI extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openSearchPostUI();
+            }
+        });
+
+        viewProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openViewProfileUI();
             }
         });
 
@@ -100,6 +108,11 @@ public class MainMenuUI extends AppCompatActivity {
 
     public void openCreatePostUI() {
         Intent intent = new Intent(this, CreatePostUI.class);
+        startActivity(intent);
+    }
+
+    public void openViewProfileUI(){
+        Intent intent = new Intent(this, ViewProfileUI.class);
         startActivity(intent);
     }
 

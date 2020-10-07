@@ -3,15 +3,15 @@ package com.example.studybuddies;
 import java.util.HashMap;
 
 public class Post {
-    //TODO create string variable for user ID
-    //TODO comments array to be added
     //TODO add pictures to Post
+    //TODO link User to Post
     String postID;
     String postTitle;
     String postDescription;
     String subject;
     HashMap<String, Comment> comments;
     int rating;
+    //User user;
 
     public Post() {
     }
@@ -23,6 +23,7 @@ public class Post {
         this.subject = subject;
         this.comments = comments;
         this.rating = rating;
+        //this.user = user;
     }
 
     public String getPostID() {
@@ -48,4 +49,6 @@ public class Post {
     public int getRating() {
         return rating;
     }
+
+    //public User getUser(){ return user; }
 }
