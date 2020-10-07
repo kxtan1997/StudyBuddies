@@ -32,7 +32,7 @@
     <string name="search_string">Search</string>
 
     <array name="subjects">
-        <item> </item>
+        <item></item>
         <item>Introduction to Databases</item>
         <item>Algorithms</item>
         <item>Artificial Intelligence</item>
