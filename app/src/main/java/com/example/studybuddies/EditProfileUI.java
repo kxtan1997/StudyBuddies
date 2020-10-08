@@ -51,6 +51,26 @@ public class EditProfileUI extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username.setText(snapshot.child("username").getValue().toString());
                 rating.setText(snapshot.child("rating").getValue().toString());
+                for (int i = 0; i < strongSub1.getCount(); i++) {
+                    if (strongSub1.getItemAtPosition(i).toString().trim().equals(snapshot.child("strongSubs").child("0").getValue().toString().trim())) {
+                        strongSub1.setSelection(i);
+                    }
+                    if (strongSub2.getItemAtPosition(i).toString().trim().equals(snapshot.child("strongSubs").child("1").getValue().toString().trim())) {
+                        strongSub2.setSelection(i);
+                    }
+                    if (strongSub3.getItemAtPosition(i).toString().trim().equals(snapshot.child("strongSubs").child("2").getValue().toString().trim())) {
+                        strongSub3.setSelection(i);
+                    }
+                    if (weakSub1.getItemAtPosition(i).toString().trim().equals(snapshot.child("weakSubs").child("0").getValue().toString().trim())) {
+                        weakSub1.setSelection(i);
+                    }
+                    if (weakSub2.getItemAtPosition(i).toString().trim().equals(snapshot.child("weakSubs").child("1").getValue().toString().trim())) {
+                        weakSub2.setSelection(i);
+                    }
+                    if (weakSub3.getItemAtPosition(i).toString().trim().equals(snapshot.child("weakSubs").child("2").getValue().toString().trim())) {
+                        weakSub3.setSelection(i);
+                    }
+                }
             }
 
             @Override
@@ -58,16 +78,6 @@ public class EditProfileUI extends AppCompatActivity {
 
             }
         });
-
-        //TODO set spinner values by firebase
-        /*for (int i = 0; i < strongSub1.getCount(); i++) {
-            if (strongSub1.getItemAtPosition(i).toString().trim().equals(strong1)) {
-                strongSub1.setSelection(i);
-            }
-        }*/
-        strongSub1.setSelection(1);
-        strongSub2.setSelection(6);
-        weakSub1.setSelection(2);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
