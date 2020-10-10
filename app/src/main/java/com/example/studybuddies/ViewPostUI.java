@@ -1,6 +1,8 @@
 package com.example.studybuddies;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +31,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -37,9 +47,12 @@ public class ViewPostUI extends AppCompatActivity {
     String page, pid;
     TextView pRating, pTitle, pDescription, pSubject;
     EditText commentInput;
+    ImageView image;
     RecyclerView commentsRecyclerView;
     DatabaseReference current_post; //get firebase reference of current post to facilitate updating of it
     Toast toast;
+
+    String postId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +67,7 @@ public class ViewPostUI extends AppCompatActivity {
         upVote = findViewById(R.id.upVote);
         downVote = findViewById(R.id.downVote);
         commentInput = findViewById(R.id.commentInput);
+        image = findViewById(R.id.iv_image);
 
         commentsRecyclerView = findViewById(R.id.commentsRecyclerView);
         commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -88,6 +102,7 @@ public class ViewPostUI extends AppCompatActivity {
             }
         });
 
+
         if (page.equals("mainMenu")) {
             FirebaseDatabase.getInstance().getReference().child("posts")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -104,11 +119,13 @@ public class ViewPostUI extends AppCompatActivity {
 
                             //set firebase reference of current post
                             current_post = FirebaseDatabase.getInstance().getReference().child("posts").child(pid);
+                            postId = pid;
 
                             pRating.setText(String.valueOf(np.rating));
                             pTitle.setText(np.postTitle);
                             pDescription.setText(np.postDescription);
                             pSubject.setText(np.subject);
+                            displayPostImage(pid); //display image of post if any
 
                             loadComments();
                         }
@@ -139,6 +156,7 @@ public class ViewPostUI extends AppCompatActivity {
                                     pTitle.setText(posts.get(i).getPostTitle());
                                     pDescription.setText(posts.get(i).getPostDescription());
                                     pSubject.setText(posts.get(i).getSubject());
+
                                     break;
                                 }
                             }
@@ -154,6 +172,17 @@ public class ViewPostUI extends AppCompatActivity {
             //TODO do something
         }
     }
+
+    public void displayPostImage(String postId) {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Post Images/" + postId + ".jpg");
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            image.setImageBitmap(bitmap);
+
+        });
+    }
+
 
     public void upVote() {
         current_post.child("rating").setValue(ServerValue.increment(1));
