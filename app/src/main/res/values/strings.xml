@@ -11,7 +11,7 @@
     <string name="rating">Rating</string>
     <string name="posted_by">Posted By:</string>
     <string name="account_name_here">Account Name Here</string>
-    <string name="ratingColon">Rating:</string>
+    <string name="rating_colon">Rating:</string>
     <string name="_0">0</string>
     <string name="title">Title:</string>
     <string name="title_here">Title Here</string>
@@ -30,9 +30,27 @@
     <string name="search_here">Search here</string>
     <string name="title_string">Title</string>
     <string name="search_string">Search</string>
+    <string name="view_profile">View Profile</string>
+    <string name="filter">Filter</string>
+    <string name="filter_button">FilterButton</string>
+    <string name="select_the_subjects_you_wish_to_view">Select the subjects you wish to view</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="username">Username:</string>
+    <string name="user">User</string>
+    <string name="rating_number">ratingNumber</string>
+    <string name="strong_subjects">Strong Subjects:</string>
+    <string name="weak_subjects">Weak Subjects:</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="strong1">Strong1</string>
+    <string name="strong2">Strong2</string>
+    <string name="strong3">Strong3</string>
+    <string name="weak1">Weak1</string>
+    <string name="weak2">Weak2</string>
+    <string name="weak3">Weak3</string>
 
     <array name="subjects">
-        <item></item>
+        <item>-</item>
         <item>Introduction to Databases</item>
         <item>Algorithms</item>
         <item>Artificial Intelligence</item>

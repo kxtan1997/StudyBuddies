@@ -28,13 +28,12 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ViewPostUI extends AppCompatActivity {
 
     Button submitButton, upVote, downVote;
     int pos;
-    String page, pid;
+    String page, pid, userID;
     TextView pRating, pTitle, pDescription, pSubject;
     EditText commentInput;
     RecyclerView commentsRecyclerView;
@@ -62,6 +61,7 @@ public class ViewPostUI extends AppCompatActivity {
         //get position of item, passed from MainMenuUI
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            userID = extras.getString("userID");
             pos = extras.getInt("pos");
             page = extras.getString("from");
             pid = extras.getString("pid");
@@ -150,8 +150,6 @@ public class ViewPostUI extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
-        } else {
-            //TODO do something
         }
     }
 
@@ -222,7 +220,7 @@ public class ViewPostUI extends AppCompatActivity {
                     }
                 });
                 commentViewHolder.commentSubject.setText(comment.getSubject());
-                commentViewHolder.commentRating.setText(String.format(Locale.ENGLISH, "%d", comment.getRating()));
+                commentViewHolder.commentRating.setText(String.format("%s", comment.getRating()));
             }
 
             @NonNull

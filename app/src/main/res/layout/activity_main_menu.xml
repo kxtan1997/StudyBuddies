@@ -11,6 +11,7 @@
         android:id="@+id/mainMenuTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
         android:text="@string/recommended_posts"
@@ -19,16 +20,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/mainMenuSearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/mainMenuFilterButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/filter"
+        android:contentDescription="@string/filter_button"
+        android:scaleX="1.7"
+        android:scaleY="1.7"
+        android:text="@string/search"
+        app:layout_constraintBottom_toBottomOf="@id/mainMenuTitle"
+        app:layout_constraintRight_toLeftOf="@id/mainMenuSearchButton"
+        app:layout_constraintTop_toTopOf="@+id/mainMenuTitle" />
+
+    <ImageButton
+        android:id="@+id/mainMenuSearchButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/background_light"
+        android:contentDescription="@string/search_button"
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="@id/mainMenuTitle"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainMenuTitle" />
+        app:layout_constraintTop_toTopOf="@+id/mainMenuTitle"
+        app:srcCompat="@mipmap/search_button" />
 
     <Button
         android:id="@+id/createPostButton"
@@ -63,7 +82,7 @@
         android:layout_marginStart="150dp"
         android:layout_marginLeft="150dp"
         android:layout_marginBottom="30dp"
-        android:text="View Profile"
+        android:text="@string/view_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/createPostButton" />
 

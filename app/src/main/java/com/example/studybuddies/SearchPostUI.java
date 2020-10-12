@@ -22,6 +22,8 @@ import com.google.firebase.database.Query;
 
 public class SearchPostUI extends AppCompatActivity {
 
+    private String userID;
+
     private EditText mSearchField;
 
     private RecyclerView mResultList;
@@ -36,12 +38,17 @@ public class SearchPostUI extends AppCompatActivity {
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("posts");
 
-        mSearchField = (EditText) findViewById(R.id.search_field);
-        ImageButton mSearchBtn = (ImageButton) findViewById(R.id.search_btn);
+        mSearchField = findViewById(R.id.search_field);
+        ImageButton mSearchBtn = findViewById(R.id.search_btn);
 
-        mResultList = (RecyclerView) findViewById(R.id.result_list);
+        mResultList = findViewById(R.id.result_list);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(this));
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userID = extras.getString("userID");
+        }
 
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,9 +106,9 @@ public class SearchPostUI extends AppCompatActivity {
 
         public void setDetails(String postTitle, String postDescription, String subject) {
 
-            TextView post_title = (TextView) mView.findViewById(R.id.postTitle_text);
-            TextView post_description = (TextView) mView.findViewById(R.id.postDescription_text);
-            TextView post_subject = (TextView) mView.findViewById(R.id.subject_text);
+            TextView post_title = mView.findViewById(R.id.postTitle_text);
+            TextView post_description = mView.findViewById(R.id.postDescription_text);
+            TextView post_subject = mView.findViewById(R.id.subject_text);
 
             post_title.setText(postTitle);
             post_description.setText(postDescription);

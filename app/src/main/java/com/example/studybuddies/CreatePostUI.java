@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CreatePostUI extends AppCompatActivity {
 
+    String userID;
+
     EditText postTitle;
     EditText postDescription;
     Button postValue;
@@ -36,6 +38,11 @@ public class CreatePostUI extends AppCompatActivity {
         postDescription = findViewById(R.id.postDescription);
         postValue = findViewById(R.id.postValue);
         subjects = findViewById(R.id.subjects);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userID = extras.getString("userID");
+        }
 
         postValue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +70,7 @@ public class CreatePostUI extends AppCompatActivity {
             toast.show();
 
             Intent intent = new Intent(this, MainMenuUI.class);
+            intent.putExtra("userID", userID);
             startActivity(intent);
         } else {
             if (toast != null)

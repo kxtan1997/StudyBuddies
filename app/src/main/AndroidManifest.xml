@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewProfileUI"></activity>
+        <activity android:name=".ViewProfileUI" />
         <activity android:name=".EditProfileUI" />
         <activity android:name=".MainMenuUI">
             <intent-filter>
@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FilterPostUI" />
         <activity android:name=".SearchPostUI" />
         <activity android:name=".ViewPostUI" />
         <activity android:name=".CreatePostUI" />

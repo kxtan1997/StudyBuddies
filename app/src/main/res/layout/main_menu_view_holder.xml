@@ -6,15 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="120dp">
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/singlePostTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="@string/post_title"
         android:textColor="#040404"
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/singlePostSubject"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView

@@ -1,8 +1,5 @@
 package com.example.studybuddies;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +7,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EditProfileUI extends AppCompatActivity {
 
-    String strong1, strong2, strong3, weak1, weak2, weak3;
+    String userID, strong1, strong2, strong3, weak1, weak2, weak3;
 
     Button backButton, saveButton;
     TextView username, rating;
@@ -32,7 +32,7 @@ public class EditProfileUI extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile_u_i);
+        setContentView(R.layout.activity_edit_profile);
 
         backButton = findViewById(R.id.editProfileBackButton);
         saveButton = findViewById(R.id.editProfileSaveButton);
@@ -45,29 +45,34 @@ public class EditProfileUI extends AppCompatActivity {
         weakSub2 = findViewById(R.id.editProfileWeakSub2);
         weakSub3 = findViewById(R.id.editProfileWeakSub3);
 
-        current_user = FirebaseDatabase.getInstance().getReference().child("users").child("MItaHYgH6qwertyuiop");
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userID = extras.getString("userID");
+        }
+
+        current_user = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
         current_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                username.setText(snapshot.child("username").getValue().toString());
-                rating.setText(snapshot.child("rating").getValue().toString());
+                username.setText((String) snapshot.child("username").getValue());
+                rating.setText(String.format("%s", snapshot.child("rating").getValue()));
                 for (int i = 0; i < strongSub1.getCount(); i++) {
-                    if (strongSub1.getItemAtPosition(i).toString().trim().equals(snapshot.child("strongSubs").child("0").getValue().toString().trim())) {
+                    if (strongSub1.getItemAtPosition(i).equals(snapshot.child("strongSubs").child("0").getValue())) {
                         strongSub1.setSelection(i);
                     }
-                    if (strongSub2.getItemAtPosition(i).toString().trim().equals(snapshot.child("strongSubs").child("1").getValue().toString().trim())) {
+                    if (strongSub2.getItemAtPosition(i).equals(snapshot.child("strongSubs").child("1").getValue())) {
                         strongSub2.setSelection(i);
                     }
-                    if (strongSub3.getItemAtPosition(i).toString().trim().equals(snapshot.child("strongSubs").child("2").getValue().toString().trim())) {
+                    if (strongSub3.getItemAtPosition(i).equals(snapshot.child("strongSubs").child("2").getValue())) {
                         strongSub3.setSelection(i);
                     }
-                    if (weakSub1.getItemAtPosition(i).toString().trim().equals(snapshot.child("weakSubs").child("0").getValue().toString().trim())) {
+                    if (weakSub1.getItemAtPosition(i).equals(snapshot.child("weakSubs").child("0").getValue())) {
                         weakSub1.setSelection(i);
                     }
-                    if (weakSub2.getItemAtPosition(i).toString().trim().equals(snapshot.child("weakSubs").child("1").getValue().toString().trim())) {
+                    if (weakSub2.getItemAtPosition(i).equals(snapshot.child("weakSubs").child("1").getValue())) {
                         weakSub2.setSelection(i);
                     }
-                    if (weakSub3.getItemAtPosition(i).toString().trim().equals(snapshot.child("weakSubs").child("2").getValue().toString().trim())) {
+                    if (weakSub3.getItemAtPosition(i).equals(snapshot.child("weakSubs").child("2").getValue())) {
                         weakSub3.setSelection(i);
                     }
                 }
@@ -94,12 +99,13 @@ public class EditProfileUI extends AppCompatActivity {
         });
     }
 
-    public void returnToViewProfile(){
+    public void returnToViewProfile() {
         Intent intent = new Intent(this, ViewProfileUI.class);
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 
-    public void saveSettings(){
+    public void saveSettings() {
         //TODO save settings
         strong1 = strongSub1.getSelectedItem().toString();
         strong2 = strongSub2.getSelectedItem().toString();
@@ -118,6 +124,7 @@ public class EditProfileUI extends AppCompatActivity {
         toast.show();
 
         Intent intent = new Intent(this, ViewProfileUI.class);
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 }
