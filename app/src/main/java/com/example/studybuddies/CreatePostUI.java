@@ -1,18 +1,30 @@
 package com.example.studybuddies;
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class CreatePostUI extends AppCompatActivity {
 
@@ -22,11 +34,18 @@ public class CreatePostUI extends AppCompatActivity {
     EditText postDescription;
     Button postValue;
     Spinner subjects;
+    private ImageView image;
+    private Uri imageUri;
+    private static final int IMAGE_PICK_CODE = 1000;
+    private static final int PERMISSION_CODE = 1001;
 
     DatabaseReference databasePost;
+    StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("Post Images");
+
 
     Toast toast;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +57,16 @@ public class CreatePostUI extends AppCompatActivity {
         postDescription = findViewById(R.id.postDescription);
         postValue = findViewById(R.id.postValue);
         subjects = findViewById(R.id.subjects);
+        Button uploadButton = findViewById(R.id.upload_button);
+        image = findViewById(R.id.iv_image);
+        uploadButton.setOnClickListener(v -> {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                requestPermissions(permissions, PERMISSION_CODE);
+            } else {
+                pickImageFromGallery();
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -52,6 +81,38 @@ public class CreatePostUI extends AppCompatActivity {
         });
     }
 
+    public void pickImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            assert data != null;
+            image.setImageURI(data.getData());
+            imageUri = data.getData();
+        }
+    }
+    void saveImage(Context context, Uri imageUri, String postId) {
+        if (imageUri != null) {
+            fileRef.child(postId + "." + getFileExtension(context, imageUri)).putFile(imageUri);
+        }
+    }
+
+    private String getFileExtension(Context context, Uri imageUri) {
+        ContentResolver contentResolver = context.getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(imageUri));
+    }
+
+
+
+
+
+
     private void addPostToDB() {
         String postDes = postDescription.getText().toString().trim();
         String title = postTitle.getText().toString().trim();
@@ -63,6 +124,7 @@ public class CreatePostUI extends AppCompatActivity {
             Post post = new Post(id, title, postDes, sub, null, 0);
             assert id != null;
             databasePost.child(id).setValue(post);
+            saveImage(this, imageUri, id);
 
             if (toast != null)
                 toast.cancel();
