@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +41,6 @@ public class CreatePostUI extends AppCompatActivity {
     DatabaseReference databasePost;
     StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("Post Images");
 
-
     Toast toast;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -60,11 +58,11 @@ public class CreatePostUI extends AppCompatActivity {
         Button uploadButton = findViewById(R.id.upload_button);
         image = findViewById(R.id.iv_image);
         uploadButton.setOnClickListener(v -> {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            if (CreatePostUI.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                requestPermissions(permissions, PERMISSION_CODE);
+                CreatePostUI.this.requestPermissions(permissions, PERMISSION_CODE);
             } else {
-                pickImageFromGallery();
+                CreatePostUI.this.pickImageFromGallery();
             }
         });
 
@@ -73,12 +71,7 @@ public class CreatePostUI extends AppCompatActivity {
             userID = extras.getString("userID");
         }
 
-        postValue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addPostToDB();
-            }
-        });
+        postValue.setOnClickListener(v -> addPostToDB());
     }
 
     public void pickImageFromGallery() {
@@ -96,6 +89,7 @@ public class CreatePostUI extends AppCompatActivity {
             imageUri = data.getData();
         }
     }
+
     void saveImage(Context context, Uri imageUri, String postId) {
         if (imageUri != null) {
             fileRef.child(postId + "." + getFileExtension(context, imageUri)).putFile(imageUri);
@@ -107,10 +101,6 @@ public class CreatePostUI extends AppCompatActivity {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(imageUri));
     }
-
-
-
-
 
 
     private void addPostToDB() {

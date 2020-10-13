@@ -2,10 +2,8 @@ package com.example.studybuddies;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
@@ -40,25 +38,17 @@ public class FilterPostUI extends AppCompatActivity {
             checkBox.setId(ViewCompat.generateViewId());
             checkBox.setText(subjects[i]);
             final int finalI = i;
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        filters.add(subjects[finalI]);
-                    } else {
-                        filters.remove(subjects[finalI]);
-                    }
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    filters.add(subjects[finalI]);
+                } else {
+                    filters.remove(subjects[finalI]);
                 }
             });
             checkBoxView.addView(checkBox);
         }
 
-        filterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFilteredMainMenuUI();
-            }
-        });
+        filterButton.setOnClickListener(v -> openFilteredMainMenuUI());
     }
 
     public void openFilteredMainMenuUI() {

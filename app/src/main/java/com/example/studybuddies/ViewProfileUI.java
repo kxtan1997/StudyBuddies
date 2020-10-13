@@ -2,7 +2,6 @@ package com.example.studybuddies;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -64,19 +63,9 @@ public class ViewProfileUI extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                returnToMainMenu();
-            }
-        });
+        backButton.setOnClickListener(v -> returnToMainMenu());
 
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openEditProfileUI();
-            }
-        });
+        editButton.setOnClickListener(v -> openEditProfileUI());
     }
 
     public void returnToMainMenu() {

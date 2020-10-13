@@ -22,8 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,12 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ViewPostUI extends AppCompatActivity {
@@ -81,26 +76,11 @@ public class ViewPostUI extends AppCompatActivity {
             pid = extras.getString("pid");
         }
 
-        upVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                upVote();
-            }
-        });
+        upVote.setOnClickListener(v -> upVote());
 
-        downVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downVote();
-            }
-        });
+        downVote.setOnClickListener(v -> downVote());
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                postComment();
-            }
-        });
+        submitButton.setOnClickListener(v -> postComment());
 
 
         if (page.equals("mainMenu")) {
@@ -236,18 +216,8 @@ public class ViewPostUI extends AppCompatActivity {
         FirebaseRecyclerAdapter<Comment, CommentViewHolder> adapter = new FirebaseRecyclerAdapter<Comment, CommentViewHolder>(options) {
             @Override
             protected void onBindViewHolder(final CommentViewHolder commentViewHolder, int i, final Comment comment) {
-                commentViewHolder.commentUpVote.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        commentViewHolder.upVoteComment(comment);
-                    }
-                });
-                commentViewHolder.commentDownVote.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        commentViewHolder.downVoteComment(comment);
-                    }
-                });
+                commentViewHolder.commentUpVote.setOnClickListener(v -> commentViewHolder.upVoteComment(comment));
+                commentViewHolder.commentDownVote.setOnClickListener(v -> commentViewHolder.downVoteComment(comment));
                 commentViewHolder.commentSubject.setText(comment.getSubject());
                 commentViewHolder.commentRating.setText(String.format("%s", comment.getRating()));
             }

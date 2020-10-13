@@ -50,12 +50,9 @@ public class SearchPostUI extends AppCompatActivity {
             userID = extras.getString("userID");
         }
 
-        mSearchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String searchText = mSearchField.getText().toString();
-                firebaseUserSearch(searchText);
-            }
+        mSearchBtn.setOnClickListener(view -> {
+            String searchText = mSearchField.getText().toString();
+            firebaseUserSearch(searchText);
         });
     }
 
@@ -68,15 +65,12 @@ public class SearchPostUI extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(PostViewHolder viewHolder, final int position, final Post post) {
                 viewHolder.setDetails(post.getPostTitle(), post.getPostDescription(), post.getSubject());
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(SearchPostUI.this, ViewPostUI.class);
-                        intent.putExtra("pos", 0);
-                        intent.putExtra("from", "search");
-                        intent.putExtra("pid", post.getPostID());
-                        startActivity(intent);
-                    }
+                viewHolder.itemView.setOnClickListener(view -> {
+                    Intent intent = new Intent(SearchPostUI.this, ViewPostUI.class);
+                    intent.putExtra("pos", 0);
+                    intent.putExtra("from", "search");
+                    intent.putExtra("pid", post.getPostID());
+                    startActivity(intent);
                 });
             }
 

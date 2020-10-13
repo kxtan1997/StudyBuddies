@@ -78,33 +78,13 @@ public class MainMenuUI extends AppCompatActivity {
             });
         }
 
-        createPostButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCreatePostUI();
-            }
-        });
+        createPostButton.setOnClickListener(v -> openCreatePostUI());
 
-        filterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFilterPostUI();
-            }
-        });
+        filterButton.setOnClickListener(v -> openFilterPostUI());
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSearchPostUI();
-            }
-        });
+        searchButton.setOnClickListener(v -> openSearchPostUI());
 
-        viewProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openViewProfileUI();
-            }
-        });
+        viewProfileButton.setOnClickListener(v -> openViewProfileUI());
 
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(postReference, Post.class).build();
         FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter = new FirebaseRecyclerAdapter<Post, MainMenuViewHolder>(options) {
@@ -118,18 +98,15 @@ public class MainMenuUI extends AppCompatActivity {
 
                         final String pid = post.getPostID();
 
-                        mainMenuViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                int pos = mainMenuViewHolder.getAdapterPosition();
-                                String page = "mainMenu";
-                                Intent intent = new Intent(view.getContext(), ViewPostUI.class);
-                                intent.putExtra("userID", userID);
-                                intent.putExtra("pos", pos);
-                                intent.putExtra("from", page);
-                                intent.putExtra("pid", pid);
-                                startActivity(intent);
-                            }
+                        mainMenuViewHolder.itemView.setOnClickListener(view -> {
+                            int pos = mainMenuViewHolder.getAdapterPosition();
+                            String page = "mainMenu";
+                            Intent intent = new Intent(view.getContext(), ViewPostUI.class);
+                            intent.putExtra("userID", userID);
+                            intent.putExtra("pos", pos);
+                            intent.putExtra("from", page);
+                            intent.putExtra("pid", pid);
+                            startActivity(intent);
                         });
                     } else {
                         mainMenuViewHolder.itemView.setVisibility(View.GONE);
@@ -145,18 +122,15 @@ public class MainMenuUI extends AppCompatActivity {
 
                         final String pid = post.getPostID();
 
-                        mainMenuViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                int pos = mainMenuViewHolder.getAdapterPosition();
-                                String page = "mainMenu";
-                                Intent intent = new Intent(view.getContext(), ViewPostUI.class);
-                                intent.putExtra("userID", userID);
-                                intent.putExtra("pos", pos);
-                                intent.putExtra("from", page);
-                                intent.putExtra("pid", pid);
-                                startActivity(intent);
-                            }
+                        mainMenuViewHolder.itemView.setOnClickListener(view -> {
+                            int pos = mainMenuViewHolder.getAdapterPosition();
+                            String page = "mainMenu";
+                            Intent intent = new Intent(view.getContext(), ViewPostUI.class);
+                            intent.putExtra("userID", userID);
+                            intent.putExtra("pos", pos);
+                            intent.putExtra("from", page);
+                            intent.putExtra("pid", pid);
+                            startActivity(intent);
                         });
                     } else {
                         mainMenuViewHolder.itemView.setVisibility(View.GONE);
