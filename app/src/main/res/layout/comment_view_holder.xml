@@ -14,6 +14,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="5dp"
         android:text="@string/comment_subject_here"
+        android:textColor="#050505"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/commentUpVote"
         app:layout_constraintTop_toBottomOf="@id/ratingString" />
@@ -29,6 +30,7 @@
         android:layout_marginRight="5dp"
         android:text="@string/rating_colon"
         android:textStyle="bold"
+        android:textColor="#050505"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.205" />
@@ -41,6 +43,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:text="@string/_0"
+        android:textColor="#050505"
         app:layout_constraintStart_toEndOf="@+id/ratingString"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
