@@ -13,7 +13,7 @@ public class Post {
     String subject;
     HashMap<String, Comment> comments;
     int rating;
-    HashMap<String,Integer> raterUID = new HashMap<String, Integer>(); //if value at 0 or -1, allow upvote only. else if value at 0 or 1, allow downvote only
+    HashMap<String,Integer> raterUID = new HashMap<String, Integer>(); // value controls what upvote and downvote does
     //User user;
 
     public Post() {
