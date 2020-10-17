@@ -5,6 +5,7 @@
     android:id="@+id/mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainMenuUI">
 
     <TextView
@@ -17,19 +18,17 @@
         android:text="@string/recommended_posts"
         android:textColor="#040404"
         android:textSize="24sp"
+        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/mainMenuFilterButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:background="@drawable/filter"
+        android:background="@drawable/filter2"
         android:contentDescription="@string/filter_button"
-        android:scaleX="1.7"
-        android:scaleY="1.7"
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="@id/mainMenuTitle"
         app:layout_constraintRight_toLeftOf="@id/mainMenuSearchButton"
@@ -41,7 +40,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:background="@android:color/background_light"
+
         android:contentDescription="@string/search_button"
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="@id/mainMenuTitle"
@@ -51,13 +50,17 @@
 
     <Button
         android:id="@+id/createPostButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginBottom="30dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/create_post"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -70,6 +73,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintBottom_toTopOf="@+id/createPostButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -77,12 +81,17 @@
 
     <Button
         android:id="@+id/viewProfileButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
         android:layout_marginLeft="150dp"
         android:layout_marginBottom="30dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/view_profile"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/createPostButton" />
 

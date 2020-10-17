@@ -10,42 +10,49 @@
         android:id="@+id/createPostTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/create_post"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/postTitle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="40dp"
         android:autofillHints=""
         android:ems="10"
+        android:fontFamily="@font/nunito_semibold"
         android:hint="@string/enter_post_title_here"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="1000"
         android:maxLines="4"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createPostTitle"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toBottomOf="@+id/createPostTitle" />
 
     <EditText
         android:id="@+id/postDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="50dp"
         android:autofillHints=""
         android:ems="10"
+        android:fontFamily="@font/nunito_semibold"
         android:hint="@string/enter_your_post_here"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="4"
-        app:layout_constraintTop_toBottomOf="@+id/postTitle"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postTitle" />
 
     <Spinner
         android:id="@+id/subjects"
@@ -53,16 +60,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:entries="@array/subjects"
+        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintTop_toBottomOf="@+id/postDescription"
         tools:layout_editor_absoluteX="-16dp" />
 
 
     <Button
         android:id="@+id/upload_button"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="87dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="Upload An Image"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -93,6 +107,10 @@
         android:layout_marginEnd="308dp"
         android:layout_marginRight="308dp"
         android:text="@string/post"
+        android:fontFamily="@font/nunito_semibold"
+        style="@style/Widget.MaterialComponents.Button"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
