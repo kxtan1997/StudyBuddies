@@ -3,6 +3,7 @@ package com.example.studybuddies;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ViewPostUI extends AppCompatActivity {
 
@@ -46,8 +49,14 @@ public class ViewPostUI extends AppCompatActivity {
     DatabaseReference current_post; //get firebase reference of current post to facilitate updating of it
     Toast toast;
 
+    HashMap<String, Integer> raterUID;//to control ratings value when user perform upvote or downvote
+    int localRaterUIDValue = 0; //cos single listener so need this to update the app locally
+
+
+
     String postId = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,8 +115,11 @@ public class ViewPostUI extends AppCompatActivity {
                             pDescription.setText(np.postDescription);
                             pSubject.setText(np.subject);
                             displayPostImage(pid); //display image of post if any
+                            raterUID = np.getRaterUID();
+                            localRaterUIDValue = raterUID.get("MItaHYgH6qwertyuiop");
 
                             loadComments();
+
                         }
 
                         @Override
@@ -161,29 +173,121 @@ public class ViewPostUI extends AppCompatActivity {
         });
     }
 
+    //upvote function: where a = localRaterUIDValue
+    //If (a == 0){ rating += 1; a=1;}
+   // Else If (a == 1){ rating -= 1; a=0;}
+    //Else if (a == -1) {rating +=2; a=1;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void upVote() {
-        current_post.child("rating").setValue(ServerValue.increment(1));
-        if (toast != null)
-            toast.cancel();
-        toast = Toast.makeText(getApplicationContext(), "Upvoted!", Toast.LENGTH_SHORT);
-        toast.show();
 
-        int value = Integer.parseInt(pRating.getText().toString());
-        value += 1;
-        pRating.setText(String.valueOf(value));
+            if (localRaterUIDValue == 0) { //allow upvote
+
+                current_post.child("rating").setValue(ServerValue.increment(1));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Post Upvoted", Toast.LENGTH_SHORT);
+                toast.show();
+
+                int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+                value += 1;
+                pRating.setText(String.valueOf(value));
+
+                current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(1)); //update firebase raterUID
+                localRaterUIDValue += 1;
+
+            }
+            else if (localRaterUIDValue == 1){ //already upvoted, so remove current upvote
+
+                current_post.child("rating").setValue(ServerValue.increment(-1));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Upvote Removed", Toast.LENGTH_SHORT);
+                toast.show();
+
+                int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+                value -= 1;
+                pRating.setText(String.valueOf(value));
+
+                current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(-1)); //update firebase raterUID
+                localRaterUIDValue -= 1;
+            }
+            else{ //value == -1, so remove downvote from post and add an upvote
+
+                current_post.child("rating").setValue(ServerValue.increment(2));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Post Upvoted", Toast.LENGTH_SHORT);
+                toast.show();
+
+                int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+                value += 2;
+                pRating.setText(String.valueOf(value));
+
+                current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(2)); //update firebase raterUID
+                localRaterUIDValue += 2;
+
+            }
+
     }
 
     public void downVote() {
-        current_post.child("rating").setValue(ServerValue.increment(-1));
-        if (toast != null)
-            toast.cancel();
-        toast = Toast.makeText(getApplicationContext(), "Downvoted!", Toast.LENGTH_SHORT);
-        toast.show();
 
-        int value = Integer.parseInt(pRating.getText().toString());
-        value -= 1;
-        pRating.setText(String.valueOf(value));
+
+        if (localRaterUIDValue == 0 ) { //allow downvote
+
+            current_post.child("rating").setValue(ServerValue.increment(-1));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Post Downvoted", Toast.LENGTH_SHORT);
+            toast.show();
+
+            int value = Integer.parseInt(pRating.getText().toString());
+            value -= 1;
+            pRating.setText(String.valueOf(value));
+
+            current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(-1)); //update firebase raterUID
+            localRaterUIDValue -=1 ;
+
+
+        }
+        else if (localRaterUIDValue == -1){ //already downvoted, so remove current downvote
+
+            current_post.child("rating").setValue(ServerValue.increment(1));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Upvote Removed", Toast.LENGTH_SHORT);
+            toast.show();
+
+            int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+            value += 1;
+            pRating.setText(String.valueOf(value));
+
+            current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(1)); //update firebase raterUID
+            localRaterUIDValue += 1;
+        }
+
+        else{ //value == 1, so remove upvote from post and add an downvote
+
+            current_post.child("rating").setValue(ServerValue.increment(-2));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Post Downvoted", Toast.LENGTH_SHORT);
+            toast.show();
+
+            int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+            value -= 2;
+            pRating.setText(String.valueOf(value));
+
+            current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(-2)); //update firebase raterUID
+            localRaterUIDValue -= 2;
+
+        }
+
+
+
+
     }
 
     @SuppressLint("ShowToast")

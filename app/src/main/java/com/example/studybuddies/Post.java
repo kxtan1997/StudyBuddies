@@ -1,6 +1,8 @@
 package com.example.studybuddies;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Post {
     //TODO add pictures to Post
@@ -11,6 +13,7 @@ public class Post {
     String subject;
     HashMap<String, Comment> comments;
     int rating;
+    HashMap<String,Integer> raterUID = new HashMap<String, Integer>(); // value controls what upvote and downvote does
     //User user;
 
     public Post() {
@@ -23,6 +26,7 @@ public class Post {
         this.subject = subject;
         this.comments = comments;
         this.rating = rating;
+        raterUID.put("MItaHYgH6qwertyuiop", 0);
         //this.user = user;
     }
 
@@ -49,6 +53,12 @@ public class Post {
     public int getRating() {
         return rating;
     }
+
+    public HashMap<String, Integer> getRaterUID(){
+        return raterUID;
+    }
+
+
 
     //public User getUser(){ return user; }
 }
