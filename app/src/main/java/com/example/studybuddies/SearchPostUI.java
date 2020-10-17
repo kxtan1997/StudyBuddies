@@ -68,7 +68,7 @@ public class SearchPostUI extends AppCompatActivity {
     }
 
     private void firebaseUserSearch(String searchText) {
-
+        String search =  searchText.toUpperCase();
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(mUserDatabase, Post.class).build();
         FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
             @NonNull
@@ -80,7 +80,7 @@ public class SearchPostUI extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(PostViewHolder viewHolder, final int position, final Post post) {
-                if (post.getPostTitle().contains(searchText)) {
+                if (post.getPostTitle().toUpperCase().contains(search)) {
                     viewHolder.setDetails(post.getPostTitle(), post.getPostDescription(), post.getSubject());
                     viewHolder.itemView.setOnClickListener(view -> {
                         Intent intent = new Intent(SearchPostUI.this, ViewPostUI.class);
