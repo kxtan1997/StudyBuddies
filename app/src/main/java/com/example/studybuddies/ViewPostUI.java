@@ -127,7 +127,10 @@ public class ViewPostUI extends AppCompatActivity {
                             pDescription.setText(np.postDescription);
                             pSubject.setText(np.subject);
                             displayPostImage(pid); //display image of post if any
-                            postLocalRaterUIDValue = np.getRaterUID().get(userID);
+                            try {
+                                postLocalRaterUIDValue = np.getRaterUID().get(userID);
+                            } catch (Exception ignored) {
+                            }
 
                             loadComments();
                         }
@@ -178,7 +181,7 @@ public class ViewPostUI extends AppCompatActivity {
     }
 
     public void displayPostImage(String postId) {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Post Images/" + postId + ".jpg");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Post Images/" + postId + ".png");
         final long ONE_MEGABYTE = 1024 * 1024;
         storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -346,7 +349,6 @@ public class ViewPostUI extends AppCompatActivity {
                 commentLocalRaterUIDValue = comment.getCommentUID().get(userID);
             } catch (Exception ignored) {
             }
-            System.out.println(commentLocalRaterUIDValue);
             if (commentLocalRaterUIDValue == 0) { //allow upvote
                 current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(1));
                 if (toast != null)
@@ -394,7 +396,6 @@ public class ViewPostUI extends AppCompatActivity {
                 commentLocalRaterUIDValue = comment.getCommentUID().get(userID);
             } catch (Exception ignored) {
             }
-            System.out.println(commentLocalRaterUIDValue);
             if (commentLocalRaterUIDValue == 0) {
                 current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(-1));
                 if (toast != null)
