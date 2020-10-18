@@ -128,23 +128,32 @@ public class CreatePostUI extends AppCompatActivity {
         String sub = subjects.getSelectedItem().toString();
 
         if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)) {
-            String id = databasePost.push().getKey();
+            if (sub.equals("-")){
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(this, "Have to fill subject field", Toast.LENGTH_LONG);
+                toast.show();
+            }
+            else {
+                String id = databasePost.push().getKey();
 
-            System.out.println(username);
-            Post post = new Post(username, id, title, postDes, sub, null, 0, null);
-            assert id != null;
-            databasePost.child(id).setValue(post);
-            saveImage(this, imageUri, id);
+                System.out.println(username);
+                Post post = new Post(username, id, title, postDes, sub, null, 0, null);
+                assert id != null;
+                databasePost.child(id).setValue(post);
+                saveImage(this, imageUri, id);
 
-            if (toast != null)
-                toast.cancel();
-            toast = Toast.makeText(this, "Post created", Toast.LENGTH_LONG);
-            toast.show();
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(this, "Post created", Toast.LENGTH_LONG);
+                toast.show();
 
-            Intent intent = new Intent(this, MainMenuUI.class);
-            intent.putExtra("userID", userID);
-            startActivity(intent);
-        } else {
+                Intent intent = new Intent(this, MainMenuUI.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
+            }
+        }
+        else {
             if (toast != null)
                 toast.cancel();
             toast = Toast.makeText(this, "This field cannot be empty", Toast.LENGTH_LONG);

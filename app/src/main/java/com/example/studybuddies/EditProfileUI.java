@@ -103,18 +103,33 @@ public class EditProfileUI extends AppCompatActivity {
         weak1 = weakSub1.getSelectedItem().toString();
         weak2 = weakSub2.getSelectedItem().toString();
         weak3 = weakSub3.getSelectedItem().toString();
-        current_user.child("strongSubs").child("0").setValue(strong1);
-        current_user.child("strongSubs").child("1").setValue(strong2);
-        current_user.child("strongSubs").child("2").setValue(strong3);
-        current_user.child("weakSubs").child("0").setValue(weak1);
-        current_user.child("weakSubs").child("1").setValue(weak2);
-        current_user.child("weakSubs").child("2").setValue(weak3);
 
-        toast = Toast.makeText(this, "Settings saved", Toast.LENGTH_LONG);
-        toast.show();
+        if ((!strong1.equals("-") && strong1.equals(strong2)) || (!strong1.equals("-") && strong1.equals(strong3)) || (!strong2.equals("-") && strong2.equals(strong3))){
+            toast = Toast.makeText(this, "No duplicate strong subject fields allowed", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else if ((!weak1.equals("-") && weak1.equals(weak2)) || (!weak1.equals("-") && weak1.equals(weak3)) || (!weak2.equals("-") && weak2.equals(weak3))){
+            toast = Toast.makeText(this, "No duplicate weak subject fields allowed", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else if ((!strong1.equals("-") && (strong1.equals(weak1) || strong1.equals(weak2) || strong1.equals(weak3))) || (!strong2.equals("-") && (strong2.equals(weak1) || strong2.equals(weak2) || strong2.equals(weak3))) || (!strong3.equals("-") && (strong3.equals(weak1) || strong3.equals(weak2) || strong3.equals(weak3)))){
+            toast = Toast.makeText(this, "Strong and weak fields cannot be the same", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else {
+            current_user.child("strongSubs").child("0").setValue(strong1);
+            current_user.child("strongSubs").child("1").setValue(strong2);
+            current_user.child("strongSubs").child("2").setValue(strong3);
+            current_user.child("weakSubs").child("0").setValue(weak1);
+            current_user.child("weakSubs").child("1").setValue(weak2);
+            current_user.child("weakSubs").child("2").setValue(weak3);
 
-        Intent intent = new Intent(this, ViewProfileUI.class);
-        intent.putExtra("userID", userID);
-        startActivity(intent);
+            toast = Toast.makeText(this, "Settings saved", Toast.LENGTH_LONG);
+            toast.show();
+
+            Intent intent = new Intent(this, ViewProfileUI.class);
+            intent.putExtra("userID", userID);
+            startActivity(intent);
+        }
     }
 }
