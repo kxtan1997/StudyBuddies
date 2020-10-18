@@ -14,7 +14,7 @@
         android:fontFamily="@font/nunito_semibold"
         android:text="@string/title_string"
         android:textColor="#555555"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/postDescription_text"
@@ -29,7 +29,7 @@
         android:fontFamily="@font/nunito_semibold"
         android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit"
         android:textColor="#999999"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/subject_text"
@@ -44,5 +44,5 @@
         android:fontFamily="@font/nunito_semibold"
         android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit"
         android:textColor="#999999"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 </RelativeLayout>
