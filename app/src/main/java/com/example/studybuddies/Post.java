@@ -1,64 +1,92 @@
 package com.example.studybuddies;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Post {
-    //TODO add pictures to Post
-    //TODO link User to Post
+    String posterUsername;
     String postID;
     String postTitle;
     String postDescription;
     String subject;
     HashMap<String, Comment> comments;
     int rating;
-    HashMap<String,Integer> raterUID = new HashMap<String, Integer>(); // value controls what upvote and downvote does
-    //User user;
+    HashMap<String, Integer> raterUID; // value controls what upvote and downvote does
 
     public Post() {
     }
 
-    public Post(String postID, String postTitle, String postDescription, String subject, HashMap<String, Comment> comments, int rating) {
+    public Post(String posterUsername, String postID, String postTitle, String postDescription, String subject, HashMap<String, Comment> comments, int rating, HashMap<String, Integer> raterUID) {
+        this.posterUsername = posterUsername;
         this.postID = postID;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.subject = subject;
         this.comments = comments;
         this.rating = rating;
-        raterUID.put("MItaHYgH6qwertyuiop", 0);
-        //this.user = user;
+        this.raterUID = raterUID;
+    }
+
+    public String getPosterUsername() {
+        return posterUsername;
+    }
+
+    public void setPosterUID(String posterUsername) {
+        this.posterUsername = posterUsername;
     }
 
     public String getPostID() {
         return postID;
     }
 
+    public void setPostID(String postID) {
+        this.postID = postID;
+    }
+
     public String getPostTitle() {
         return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
     }
 
     public String getPostDescription() {
         return postDescription;
     }
 
+    public void setPostDescription(String postDescription) {
+        this.postDescription = postDescription;
+    }
+
     public String getSubject() {
         return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public HashMap<String, Comment> getComments() {
         return comments;
     }
 
+    public void setComments(HashMap<String, Comment> comments) {
+        this.comments = comments;
+    }
+
     public int getRating() {
         return rating;
     }
 
-    public HashMap<String, Integer> getRaterUID(){
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public HashMap<String, Integer> getRaterUID() {
         return raterUID;
     }
 
-
-
-    //public User getUser(){ return user; }
+    public void setRaterUID(HashMap<String, Integer> raterUID) {
+        this.raterUID = raterUID;
+    }
 }

@@ -16,18 +16,24 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Objects;
+
 public class CreatePostUI extends AppCompatActivity {
 
-    String userID;
+    String userID, username;
 
     EditText postTitle;
     EditText postDescription;
@@ -71,6 +77,19 @@ public class CreatePostUI extends AppCompatActivity {
             userID = extras.getString("userID");
         }
 
+        DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
+        current_user.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         postValue.setOnClickListener(v -> addPostToDB());
     }
 
@@ -111,7 +130,8 @@ public class CreatePostUI extends AppCompatActivity {
         if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)) {
             String id = databasePost.push().getKey();
 
-            Post post = new Post(id, title, postDes, sub, null, 0);
+            System.out.println(username);
+            Post post = new Post(username, id, title, postDes, sub, null, 0, null);
             assert id != null;
             databasePost.child(id).setValue(post);
             saveImage(this, imageUri, id);

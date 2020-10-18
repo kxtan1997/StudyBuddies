@@ -1,6 +1,5 @@
 package com.example.studybuddies;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,15 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SearchPostUI extends AppCompatActivity {
 
@@ -38,8 +30,6 @@ public class SearchPostUI extends AppCompatActivity {
 
     private DatabaseReference mUserDatabase;
     private FirebaseRecyclerOptions<Post> options;
-
-    private ArrayList<Post> ArrayofPosts = new ArrayList<>();
 
 
     @Override
@@ -68,7 +58,7 @@ public class SearchPostUI extends AppCompatActivity {
     }
 
     private void firebaseUserSearch(String searchText) {
-        String search =  searchText.toUpperCase();
+        String search = searchText.toUpperCase();
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(mUserDatabase, Post.class).build();
         FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
             @NonNull
@@ -79,19 +69,20 @@ public class SearchPostUI extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(PostViewHolder viewHolder, final int position, final Post post) {
+            protected void onBindViewHolder(@NonNull PostViewHolder viewHolder, final int position, final Post post) {
                 if (post.getPostTitle().toUpperCase().contains(search)) {
                     viewHolder.setDetails(post.getPostTitle(), post.getPostDescription(), post.getSubject());
                     viewHolder.itemView.setOnClickListener(view -> {
                         Intent intent = new Intent(SearchPostUI.this, ViewPostUI.class);
+                        intent.putExtra("userID", userID);
                         intent.putExtra("pos", 0);
                         intent.putExtra("from", "search");
                         intent.putExtra("pid", post.getPostID());
                         startActivity(intent);
                     });
+                } else {
+                    viewHolder.itemView.setLayoutParams(viewHolder.params);
                 }
-                else{
-                    viewHolder.itemView.setLayoutParams(viewHolder.params);                }
             }
 
 

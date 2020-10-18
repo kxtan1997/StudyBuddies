@@ -5,7 +5,6 @@
     android:id="@+id/mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".MainMenuUI">
 
     <TextView
@@ -15,10 +14,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/recommended_posts"
         android:textColor="#040404"
         android:textSize="24sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,6 +25,7 @@
         android:id="@+id/mainMenuFilterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/filter2"
         android:contentDescription="@string/filter_button"
@@ -40,7 +40,6 @@
         android:layout_height="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-
         android:contentDescription="@string/search_button"
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="@id/mainMenuTitle"
@@ -53,16 +52,13 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginBottom="30dp"
         android:fontFamily="@font/nunito_semibold"
         android:text="@string/create_post"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/mainMenuRecyclerView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainMenuRecyclerView"
@@ -84,15 +80,12 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
         android:layout_marginBottom="30dp"
         android:fontFamily="@font/nunito_semibold"
         android:text="@string/view_profile"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/createPostButton" />
+        app:layout_constraintEnd_toEndOf="@id/mainMenuRecyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

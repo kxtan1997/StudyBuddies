@@ -13,10 +13,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/edit_profile"
         android:textColor="#000000"
         android:textSize="24sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -26,10 +26,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/username"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileTitle" />
 
@@ -40,10 +40,10 @@
         android:layout_marginStart="80dp"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/user"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toEndOf="@+id/editProfileUsernameTag"
         app:layout_constraintTop_toBottomOf="@+id/editProfileTitle" />
 
@@ -54,10 +54,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/rating_colon"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileUsernameTag" />
 
@@ -68,10 +68,10 @@
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/rating_number"
         android:textColor="#090909"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toEndOf="@+id/editProfileRatingTag"
         app:layout_constraintTop_toBottomOf="@+id/editProfileUsername" />
 
@@ -82,10 +82,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/strong_subjects"
         android:textColor="#050505"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileRatingTag" />
 
@@ -96,10 +96,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="120dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/weak_subjects"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileStrongSubTag" />
 
@@ -165,14 +165,14 @@
 
     <Button
         android:id="@+id/editProfileBackButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/back"
         android:fontFamily="@font/nunito_semibold"
-        style="@style/Widget.MaterialComponents.Button"
+        android:text="@string/back"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -180,14 +180,14 @@
 
     <Button
         android:id="@+id/editProfileSaveButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="180dp"
         android:layout_marginLeft="180dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/save"
         android:fontFamily="@font/nunito_semibold"
-        style="@style/Widget.MaterialComponents.Button"
+        android:text="@string/save"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

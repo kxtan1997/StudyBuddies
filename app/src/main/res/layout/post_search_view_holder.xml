@@ -36,13 +36,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/postDescription_text"
-        android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:fontFamily="@font/nunito_semibold"
-        android:layout_marginTop="5dp"
-        android:textColor="#999999"
-        android:layout_marginEnd="30dp"
         android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit"
+        android:textColor="#999999"
         android:textSize="12sp" />
 </RelativeLayout>

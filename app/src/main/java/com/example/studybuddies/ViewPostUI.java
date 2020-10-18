@@ -35,24 +35,22 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Objects;
 
 public class ViewPostUI extends AppCompatActivity {
 
     Button submitButton, upVote, downVote;
     int pos;
-    String page, pid, userID;
-    TextView pRating, pTitle, pDescription, pSubject;
+    String page, pid, userID, username;
+    TextView pRating, pTitle, pDescription, pSubject, pUsername;
     EditText commentInput;
     ImageView image;
     RecyclerView commentsRecyclerView;
     DatabaseReference current_post; //get firebase reference of current post to facilitate updating of it
     Toast toast;
 
-    HashMap<String, Integer> raterUID;//to control ratings value when user perform upvote or downvote
-    int localRaterUIDValue = 0; //cos single listener so need this to update the app locally
-
-
+    Integer postLocalRaterUIDValue = 0; //cos single listener so need this to update the app locally
+    Integer commentLocalRaterUIDValue = 0;
 
     String postId = null;
 
@@ -66,6 +64,7 @@ public class ViewPostUI extends AppCompatActivity {
         pTitle = findViewById(R.id.postTitle);
         pDescription = findViewById(R.id.postDescription);
         pSubject = findViewById(R.id.postSubject);
+        pUsername = findViewById(R.id.posterUsername);
         submitButton = findViewById(R.id.submitButton);
         upVote = findViewById(R.id.upVote);
         downVote = findViewById(R.id.downVote);
@@ -91,6 +90,18 @@ public class ViewPostUI extends AppCompatActivity {
 
         submitButton.setOnClickListener(v -> postComment());
 
+        DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
+        current_user.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (page.equals("mainMenu")) {
             FirebaseDatabase.getInstance().getReference().child("posts")
@@ -110,16 +121,15 @@ public class ViewPostUI extends AppCompatActivity {
                             current_post = FirebaseDatabase.getInstance().getReference().child("posts").child(pid);
                             postId = pid;
 
+                            pUsername.setText(np.posterUsername);
                             pRating.setText(String.valueOf(np.rating));
                             pTitle.setText(np.postTitle);
                             pDescription.setText(np.postDescription);
                             pSubject.setText(np.subject);
                             displayPostImage(pid); //display image of post if any
-                            raterUID = np.getRaterUID();
-                            localRaterUIDValue = raterUID.get("MItaHYgH6qwertyuiop");
+                            postLocalRaterUIDValue = np.getRaterUID().get(userID);
 
                             loadComments();
-
                         }
 
                         @Override
@@ -144,15 +154,19 @@ public class ViewPostUI extends AppCompatActivity {
 
                                     current_post = FirebaseDatabase.getInstance().getReference().child("posts").child(pid);
 
+                                    pUsername.setText(posts.get(i).getPosterUsername());
                                     pRating.setText(String.valueOf(posts.get(i).getRating()));
                                     pTitle.setText(posts.get(i).getPostTitle());
                                     pDescription.setText(posts.get(i).getPostDescription());
                                     pSubject.setText(posts.get(i).getSubject());
-
+                                    displayPostImage(pid);
+                                    try {
+                                        postLocalRaterUIDValue = posts.get(i).getRaterUID().get(userID);
+                                    } catch (Exception ignored) {
+                                    }
                                     break;
                                 }
                             }
-
                             loadComments();
                         }
 
@@ -168,75 +182,59 @@ public class ViewPostUI extends AppCompatActivity {
         final long ONE_MEGABYTE = 1024 * 1024;
         storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            ViewGroup.LayoutParams params = image.getLayoutParams();
+            params.width = 170;
+            params.height = 130;
+            image.setLayoutParams(params);
             image.setImageBitmap(bitmap);
-
         });
     }
 
-    //upvote function: where a = localRaterUIDValue
-    //If (a == 0){ rating += 1; a=1;}
-   // Else If (a == 1){ rating -= 1; a=0;}
-    //Else if (a == -1) {rating +=2; a=1;
-
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void upVote() {
+        if (postLocalRaterUIDValue == 0) { //allow upvote
+            current_post.child("rating").setValue(ServerValue.increment(1));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Post Upvoted", Toast.LENGTH_SHORT);
+            toast.show();
 
-            if (localRaterUIDValue == 0) { //allow upvote
+            int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+            value += 1;
+            pRating.setText(String.valueOf(value));
 
-                current_post.child("rating").setValue(ServerValue.increment(1));
-                if (toast != null)
-                    toast.cancel();
-                toast = Toast.makeText(getApplicationContext(), "Post Upvoted", Toast.LENGTH_SHORT);
-                toast.show();
+            current_post.child("raterUID").child(userID).setValue(ServerValue.increment(1)); //update firebase raterUID
+            postLocalRaterUIDValue += 1;
+        } else if (postLocalRaterUIDValue == 1) { //already upvoted, so remove current upvote
+            current_post.child("rating").setValue(ServerValue.increment(-1));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Upvote Removed", Toast.LENGTH_SHORT);
+            toast.show();
 
-                int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
-                value += 1;
-                pRating.setText(String.valueOf(value));
+            int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+            value -= 1;
+            pRating.setText(String.valueOf(value));
 
-                current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(1)); //update firebase raterUID
-                localRaterUIDValue += 1;
+            current_post.child("raterUID").child(userID).setValue(ServerValue.increment(-1)); //update firebase raterUID
+            postLocalRaterUIDValue -= 1;
+        } else { //value == -1, so remove downvote from post and add an upvote
+            current_post.child("rating").setValue(ServerValue.increment(2));
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Post Upvoted", Toast.LENGTH_SHORT);
+            toast.show();
 
-            }
-            else if (localRaterUIDValue == 1){ //already upvoted, so remove current upvote
+            int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
+            value += 2;
+            pRating.setText(String.valueOf(value));
 
-                current_post.child("rating").setValue(ServerValue.increment(-1));
-                if (toast != null)
-                    toast.cancel();
-                toast = Toast.makeText(getApplicationContext(), "Upvote Removed", Toast.LENGTH_SHORT);
-                toast.show();
-
-                int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
-                value -= 1;
-                pRating.setText(String.valueOf(value));
-
-                current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(-1)); //update firebase raterUID
-                localRaterUIDValue -= 1;
-            }
-            else{ //value == -1, so remove downvote from post and add an upvote
-
-                current_post.child("rating").setValue(ServerValue.increment(2));
-                if (toast != null)
-                    toast.cancel();
-                toast = Toast.makeText(getApplicationContext(), "Post Upvoted", Toast.LENGTH_SHORT);
-                toast.show();
-
-                int value = Integer.parseInt(pRating.getText().toString()); //update locally in same screen
-                value += 2;
-                pRating.setText(String.valueOf(value));
-
-                current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(2)); //update firebase raterUID
-                localRaterUIDValue += 2;
-
-            }
-
+            current_post.child("raterUID").child(userID).setValue(ServerValue.increment(2)); //update firebase raterUID
+            postLocalRaterUIDValue += 2;
+        }
     }
 
     public void downVote() {
-
-
-        if (localRaterUIDValue == 0 ) { //allow downvote
-
+        if (postLocalRaterUIDValue == 0) { //allow downvote
             current_post.child("rating").setValue(ServerValue.increment(-1));
             if (toast != null)
                 toast.cancel();
@@ -247,13 +245,9 @@ public class ViewPostUI extends AppCompatActivity {
             value -= 1;
             pRating.setText(String.valueOf(value));
 
-            current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(-1)); //update firebase raterUID
-            localRaterUIDValue -=1 ;
-
-
-        }
-        else if (localRaterUIDValue == -1){ //already downvoted, so remove current downvote
-
+            current_post.child("raterUID").child(userID).setValue(ServerValue.increment(-1)); //update firebase raterUID
+            postLocalRaterUIDValue -= 1;
+        } else if (postLocalRaterUIDValue == -1) { //already downvoted, so remove current downvote
             current_post.child("rating").setValue(ServerValue.increment(1));
             if (toast != null)
                 toast.cancel();
@@ -264,12 +258,9 @@ public class ViewPostUI extends AppCompatActivity {
             value += 1;
             pRating.setText(String.valueOf(value));
 
-            current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(1)); //update firebase raterUID
-            localRaterUIDValue += 1;
-        }
-
-        else{ //value == 1, so remove upvote from post and add an downvote
-
+            current_post.child("raterUID").child(userID).setValue(ServerValue.increment(1)); //update firebase raterUID
+            postLocalRaterUIDValue += 1;
+        } else { //value == 1, so remove upvote from post and add an downvote
             current_post.child("rating").setValue(ServerValue.increment(-2));
             if (toast != null)
                 toast.cancel();
@@ -280,14 +271,9 @@ public class ViewPostUI extends AppCompatActivity {
             value -= 2;
             pRating.setText(String.valueOf(value));
 
-            current_post.child("raterUID").child("MItaHYgH6qwertyuiop").setValue(ServerValue.increment(-2)); //update firebase raterUID
-            localRaterUIDValue -= 2;
-
+            current_post.child("raterUID").child(userID).setValue(ServerValue.increment(-2)); //update firebase raterUID
+            postLocalRaterUIDValue -= 2;
         }
-
-
-
-
     }
 
     @SuppressLint("ShowToast")
@@ -298,7 +284,7 @@ public class ViewPostUI extends AppCompatActivity {
         if (!TextUtils.isEmpty(subject)) {
             String id = current_post.child("comments").push().getKey();
 
-            Comment comment = new Comment(id, subject, 0);
+            Comment comment = new Comment(username, id, subject, 0, null);
 
             assert id != null;
             current_post.child("comments").child(id).setValue(comment);
@@ -322,6 +308,7 @@ public class ViewPostUI extends AppCompatActivity {
             protected void onBindViewHolder(final CommentViewHolder commentViewHolder, int i, final Comment comment) {
                 commentViewHolder.commentUpVote.setOnClickListener(v -> commentViewHolder.upVoteComment(comment));
                 commentViewHolder.commentDownVote.setOnClickListener(v -> commentViewHolder.downVoteComment(comment));
+                commentViewHolder.commentUsername.setText(comment.getUsername());
                 commentViewHolder.commentSubject.setText(comment.getSubject());
                 commentViewHolder.commentRating.setText(String.format("%s", comment.getRating()));
             }
@@ -339,7 +326,7 @@ public class ViewPostUI extends AppCompatActivity {
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
-        TextView commentSubject, commentRating;
+        TextView commentUsername, commentSubject, commentRating;
         Button commentUpVote, commentDownVote;
         View mView;
 
@@ -347,6 +334,7 @@ public class ViewPostUI extends AppCompatActivity {
             super(itemView);
             mView = itemView;
 
+            commentUsername = itemView.findViewById(R.id.commentUsername);
             commentSubject = itemView.findViewById(R.id.commentSubject);
             commentRating = itemView.findViewById(R.id.commentRating);
             commentUpVote = itemView.findViewById(R.id.commentUpVote);
@@ -354,27 +342,99 @@ public class ViewPostUI extends AppCompatActivity {
         }
 
         public void upVoteComment(Comment comment) {
-            current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(1));
-            if (toast != null)
-                toast.cancel();
-            toast = Toast.makeText(getApplicationContext(), "Upvoted comment!", Toast.LENGTH_SHORT);
-            toast.show();
+            try {
+                commentLocalRaterUIDValue = comment.getCommentUID().get(userID);
+            } catch (Exception ignored) {
+            }
+            System.out.println(commentLocalRaterUIDValue);
+            if (commentLocalRaterUIDValue == 0) { //allow upvote
+                current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(1));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Upvoted Comment!", Toast.LENGTH_SHORT);
+                toast.show();
 
-            int value = Integer.parseInt(commentRating.getText().toString());
-            value += 1;
-            commentRating.setText(String.valueOf(value));
+                int value = Integer.parseInt(commentRating.getText().toString());
+                value += 1;
+                commentRating.setText(String.valueOf(value));
+
+                current_post.child("comments").child(comment.getCommentID()).child("commentUID").child(userID).setValue(ServerValue.increment(1)); //update firebase raterUID
+                commentLocalRaterUIDValue += 1;
+            } else if (commentLocalRaterUIDValue == 1) { //already upvoted, so remove current upvote
+                current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(-1));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Upvote Removed!", Toast.LENGTH_SHORT);
+                toast.show();
+
+                int value = Integer.parseInt(commentRating.getText().toString());
+                value -= 1;
+                commentRating.setText(String.valueOf(value));
+
+                current_post.child("comments").child(comment.getCommentID()).child("commentUID").child(userID).setValue(ServerValue.increment(-1)); //update firebase raterUID
+                commentLocalRaterUIDValue -= 1;
+            } else { //value == -1, so remove downvote from post and add an upvote
+                current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(2));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Upvoted Comment!", Toast.LENGTH_SHORT);
+                toast.show();
+
+                int value = Integer.parseInt(commentRating.getText().toString());
+                value += 2;
+                commentRating.setText(String.valueOf(value));
+
+                current_post.child("comments").child(comment.getCommentID()).child("commentUID").child(userID).setValue(ServerValue.increment(2)); //update firebase raterUID
+                commentLocalRaterUIDValue += 2;
+            }
         }
 
         public void downVoteComment(Comment comment) {
-            current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(-1));
-            if (toast != null)
-                toast.cancel();
-            toast = Toast.makeText(getApplicationContext(), "Downvoted comment!", Toast.LENGTH_SHORT);
-            toast.show();
+            try {
+                commentLocalRaterUIDValue = comment.getCommentUID().get(userID);
+            } catch (Exception ignored) {
+            }
+            System.out.println(commentLocalRaterUIDValue);
+            if (commentLocalRaterUIDValue == 0) {
+                current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(-1));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Downvoted Comment!", Toast.LENGTH_SHORT);
+                toast.show();
 
-            int value = Integer.parseInt(commentRating.getText().toString());
-            value -= 1;
-            commentRating.setText(String.valueOf(value));
+                int value = Integer.parseInt(commentRating.getText().toString());
+                value += 1;
+                commentRating.setText(String.valueOf(value));
+
+                current_post.child("comments").child(comment.getCommentID()).child("commentUID").child(userID).setValue(ServerValue.increment(-1)); //update firebase raterUID
+                commentLocalRaterUIDValue -= 1;
+            } else if (commentLocalRaterUIDValue == -1) {
+                current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(1));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Downvote Removed!", Toast.LENGTH_SHORT);
+                toast.show();
+
+                int value = Integer.parseInt(commentRating.getText().toString());
+                value += 1;
+                commentRating.setText(String.valueOf(value));
+
+                current_post.child("comments").child(comment.getCommentID()).child("commentUID").child(userID).setValue(ServerValue.increment(1)); //update firebase raterUID
+                commentLocalRaterUIDValue += 1;
+            } else {
+                current_post.child("comments").child(comment.getCommentID()).child("rating").setValue(ServerValue.increment(-2));
+                if (toast != null)
+                    toast.cancel();
+                toast = Toast.makeText(getApplicationContext(), "Downvoted Comment!", Toast.LENGTH_SHORT);
+                toast.show();
+
+                int value = Integer.parseInt(commentRating.getText().toString());
+                value -= 2;
+                commentRating.setText(String.valueOf(value));
+
+                current_post.child("comments").child(comment.getCommentID()).child("commentUID").child(userID).setValue(ServerValue.increment(-2)); //update firebase raterUID
+                commentLocalRaterUIDValue -= 2;
+            }
         }
     }
 }

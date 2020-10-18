@@ -59,7 +59,6 @@
         android:contentDescription="@string/search_button"
         app:srcCompat="@mipmap/search_button" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/result_list"
         android:layout_width="match_parent"

@@ -3,20 +3,29 @@ package com.example.studybuddies;
 import java.util.HashMap;
 
 public class Comment {
-    //TODO create string variable for user ID
+    String username;
     String commentID;
     String subject;
     int rating;
-    HashMap<String,Integer> commentUID = new HashMap<String, Integer>(); //if value at 0 or -1, allow upvote only. else if value at 0 or 1, allow downvote only
+    HashMap<String, Integer> commentUID; //if value at 0 or -1, allow upvote only. else if value at 0 or 1, allow downvote only
 
     public Comment() {
     }
 
-    public Comment(String commentID, String subject, int rating) {
+    public Comment(String username, String commentID, String subject, int rating, HashMap<String, Integer> commentUID) {
+        this.username = username;
         this.commentID = commentID;
         this.subject = subject;
         this.rating = rating;
-        commentUID.put("MItaHYgH6qwertyuiop", 0);
+        this.commentUID = commentUID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCommentID() {
@@ -43,7 +52,11 @@ public class Comment {
         this.rating = rating;
     }
 
-    public HashMap<String, Integer> getRaterUID(){
+    public HashMap<String, Integer> getCommentUID() {
         return commentUID;
+    }
+
+    public void setCommentUID(HashMap<String, Integer> commentUID) {
+        this.commentUID = commentUID;
     }
 }

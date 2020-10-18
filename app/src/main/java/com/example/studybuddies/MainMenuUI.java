@@ -34,22 +34,22 @@ public class MainMenuUI extends AppCompatActivity {
 
     Button createPostButton, viewProfileButton;
     ImageButton filterButton, searchButton;
+    RecyclerView mainMenuRecyclerView;
 
-    private FirebaseRecyclerOptions<Post> options;
+    FirebaseRecyclerOptions<Post> options;
+    DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
+    DatabaseReference postReference = FirebaseDatabase.getInstance().getReference().child("posts");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
-        DatabaseReference postReference = FirebaseDatabase.getInstance().getReference().child("posts");
-
         filterButton = findViewById(R.id.mainMenuFilterButton);
         searchButton = findViewById(R.id.mainMenuSearchButton);
         createPostButton = findViewById(R.id.createPostButton);
         viewProfileButton = findViewById(R.id.viewProfileButton);
-        final RecyclerView mainMenuRecyclerView = findViewById(R.id.mainMenuRecyclerView);
+        mainMenuRecyclerView = findViewById(R.id.mainMenuRecyclerView);
         mainMenuRecyclerView.setHasFixedSize(true);
         mainMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -69,6 +69,7 @@ public class MainMenuUI extends AppCompatActivity {
                         userSubs.add((String) snapshot.child("strongSubs").child(Integer.toString(i)).getValue());
                         userSubs.add((String) snapshot.child("weakSubs").child(Integer.toString(i)).getValue());
                     }
+                    initialisePosts();
                 }
 
                 @Override
@@ -76,6 +77,8 @@ public class MainMenuUI extends AppCompatActivity {
 
                 }
             });
+        } else {
+            initialisePosts();
         }
 
         createPostButton.setOnClickListener(v -> openCreatePostUI());
@@ -85,7 +88,9 @@ public class MainMenuUI extends AppCompatActivity {
         searchButton.setOnClickListener(v -> openSearchPostUI());
 
         viewProfileButton.setOnClickListener(v -> openViewProfileUI());
+    }
 
+    public void initialisePosts() {
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(postReference, Post.class).build();
         FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter = new FirebaseRecyclerAdapter<Post, MainMenuViewHolder>(options) {
             @Override

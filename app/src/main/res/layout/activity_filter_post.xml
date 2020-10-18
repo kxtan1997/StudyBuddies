@@ -32,14 +32,14 @@
 
     <Button
         android:id="@+id/filter"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="@string/filter"
         android:fontFamily="@font/nunito_semibold"
-        style="@style/Widget.MaterialComponents.Button"
+        android:text="@string/filter"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"

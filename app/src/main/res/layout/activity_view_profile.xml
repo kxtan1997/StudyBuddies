@@ -14,10 +14,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/view_profile"
         android:textColor="#000000"
         android:textSize="24sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -27,10 +27,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/username"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileTitle" />
 
@@ -41,10 +41,10 @@
         android:layout_marginStart="80dp"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/user"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toEndOf="@+id/viewProfileUsernameTag"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileTitle" />
 
@@ -55,10 +55,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/rating_colon"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileUsernameTag" />
 
@@ -69,10 +69,10 @@
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/rating_number"
         android:textColor="#090909"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toEndOf="@+id/viewProfileRatingTag"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileUsername" />
 
@@ -83,10 +83,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/strong_subjects"
         android:textColor="#050505"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileRatingTag" />
 
@@ -97,10 +97,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="120dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/weak_subjects"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileStrongSubTag" />
 
@@ -111,10 +111,10 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="45dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/strong1"
         android:textColor="#040404"
         android:textSize="16sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toEndOf="@+id/viewProfileStrongSubTag"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileRating" />
 
@@ -125,10 +125,10 @@
         android:layout_marginStart="196dp"
         android:layout_marginLeft="196dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/strong2"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileStrong1" />
 
@@ -139,10 +139,10 @@
         android:layout_marginStart="196dp"
         android:layout_marginLeft="196dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/strong3"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileStrong2" />
 
@@ -153,10 +153,10 @@
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="50dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/weak1"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toEndOf="@+id/viewProfileWeakSubTag"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileStrong3" />
 
@@ -167,10 +167,10 @@
         android:layout_marginStart="196dp"
         android:layout_marginLeft="196dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/weak2"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileWeak1" />
 
@@ -181,23 +181,23 @@
         android:layout_marginStart="196dp"
         android:layout_marginLeft="196dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/weak3"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewProfileWeak2" />
 
     <Button
         android:id="@+id/viewProfileBackButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/back"
         android:fontFamily="@font/nunito_semibold"
-        style="@style/Widget.MaterialComponents.Button"
+        android:text="@string/back"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -205,14 +205,14 @@
 
     <Button
         android:id="@+id/viewProfileToEditButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
         android:layout_marginLeft="170dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/edit_profile"
         android:fontFamily="@font/nunito_semibold"
-        style="@style/Widget.MaterialComponents.Button"
+        android:text="@string/edit_profile"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

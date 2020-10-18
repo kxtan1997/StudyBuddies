@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/postView"
@@ -45,13 +43,13 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/posterName"
+                app:layout_constraintEnd_toStartOf="@+id/posterUsername"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.492" />
 
             <TextView
-                android:id="@+id/posterName"
+                android:id="@+id/posterUsername"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
@@ -69,11 +67,11 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:text="@string/rating_colon"
-                android:textStyle="bold"
                 android:textColor="#050505"
                 android:textSize="18sp"
-                android:fontFamily="@font/nunito_semibold"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -89,8 +87,8 @@
                 android:textColor="#050505"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/posterName"
-                app:layout_constraintTop_toBottomOf="@+id/posterName"
+                app:layout_constraintStart_toStartOf="@+id/posterUsername"
+                app:layout_constraintTop_toBottomOf="@+id/posterUsername"
                 app:layout_constraintVertical_bias="0.205" />
 
             <Button
@@ -107,7 +105,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postRating"
-                app:layout_constraintTop_toBottomOf="@+id/posterName"
+                app:layout_constraintTop_toBottomOf="@+id/posterUsername"
                 app:layout_constraintVertical_bias="0.205" />
 
             <Button
@@ -122,7 +120,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/postRating"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/posterName"
+                app:layout_constraintTop_toBottomOf="@+id/posterUsername"
                 app:layout_constraintVertical_bias="0.205" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -130,8 +128,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView9"
@@ -139,15 +136,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginEnd="250dp"
-                android:layout_marginRight="250dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:text="@string/title"
-                android:textStyle="bold"
                 android:textColor="#050505"
                 android:textSize="18sp"
-                android:fontFamily="@font/nunito_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -168,12 +161,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:text="@string/subject"
-                android:textStyle="bold"
                 android:textColor="#050505"
                 android:textSize="18sp"
-                android:fontFamily="@font/nunito_semibold"
-                app:layout_constraintBottom_toTopOf="@+id/textView11"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -190,6 +183,12 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/postTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView11"
@@ -197,25 +196,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="236dp"
-                android:layout_marginRight="236dp"
-                android:layout_marginBottom="270dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:text="@string/description"
-                android:textStyle="bold"
                 android:textColor="#050505"
                 android:textSize="18sp"
-                android:fontFamily="@font/nunito_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView10"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/postDescription"
                 android:layout_width="195dp"
-                android:layout_height="129dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
@@ -223,26 +216,28 @@
                 android:text="@string/in_descriptive_writing_the_author_does_not_just_tell_the_reader_what_was_seen_felt_tested_smelled_or_heard_rather_the_author_describes_something_from_their_own_experience_and_through_careful_choice_of_words_and_phrasing_makes_it_seem_real_descriptive_writing_is_vivid_colorful_and_detailed"
                 android:textColor="#050505"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-
             <ImageView
                 android:id="@+id/iv_image"
-                android:layout_width="168dp"
-                android:layout_height="129dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:contentDescription="TODO"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/post_image"
+                app:layout_constraintBottom_toBottomOf="@id/postDescription"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.951"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/postDescription"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.609" />
+                app:layout_constraintTop_toTopOf="@id/postDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView4"
@@ -250,21 +245,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="286dp"
-                android:layout_marginRight="286dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:text="@string/comments"
-                android:textStyle="bold"
                 android:textColor="#050505"
                 android:textSize="18sp"
-                android:fontFamily="@font/nunito_semibold"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/postDescription"
-                app:layout_constraintVertical_bias="0.0" />
-
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
@@ -272,14 +261,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:textColor="#050505"
+        android:layout_height="0dp"
         android:fontFamily="@font/nunito_semibold"
+        android:textColor="#050505"
+        app:layout_constraintBottom_toTopOf="@id/cl5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/postView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl3"
+        android:id="@+id/cl5"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#E4E4E2"
@@ -296,10 +287,10 @@
             android:layout_marginBottom="16dp"
             android:autofillHints=""
             android:ems="10"
+            android:fontFamily="@font/nunito_semibold"
             android:hint="@string/leave_a_comment"
             android:inputType="textPersonName"
             android:textSize="14sp"
-            android:fontFamily="@font/nunito_semibold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -314,8 +305,8 @@
             android:layout_marginRight="7dp"
             android:layout_marginBottom="16dp"
             android:text="@string/submit"
-            android:textColor="#050505"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#050505"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

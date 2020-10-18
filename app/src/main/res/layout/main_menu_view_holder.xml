@@ -20,8 +20,8 @@
         android:text="@string/post_title"
         android:textColor="#040404"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/singlePostSubject"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView

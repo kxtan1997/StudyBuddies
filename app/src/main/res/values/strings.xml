@@ -48,6 +48,9 @@
     <string name="weak1">Weak1</string>
     <string name="weak2">Weak2</string>
     <string name="weak3">Weak3</string>
+    <string name="post_image">Post Image</string>
+    <string name="upload_an_image">Upload An Image</string>
+    <string name="comment_username_here">Comment username here</string>
 
     <array name="subjects">
         <item>-</item>
