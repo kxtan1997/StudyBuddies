@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,6 +64,8 @@ public class CreatePostUI extends AppCompatActivity {
         subjects = findViewById(R.id.subjects);
         Button uploadButton = findViewById(R.id.upload_button);
         image = findViewById(R.id.iv_image);
+        image.setVisibility(View.INVISIBLE);
+
         uploadButton.setOnClickListener(v -> {
             if (CreatePostUI.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -106,6 +109,7 @@ public class CreatePostUI extends AppCompatActivity {
             assert data != null;
             image.setImageURI(data.getData());
             imageUri = data.getData();
+            image.setVisibility(View.VISIBLE);
         }
     }
 
