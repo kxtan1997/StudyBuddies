@@ -27,7 +27,7 @@
         android:layout_below="@+id/header_label"
         android:layout_alignStart="@+id/header_label"
         android:layout_alignLeft="@+id/header_label"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_toStartOf="@+id/search_btn"
@@ -64,6 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search_field"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

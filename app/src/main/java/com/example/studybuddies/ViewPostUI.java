@@ -186,10 +186,20 @@ public class ViewPostUI extends AppCompatActivity {
         storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             ViewGroup.LayoutParams params = image.getLayoutParams();
-            params.width =600 ;
-            params.height = 400;
+            if (bitmap.getWidth() < ((View) image.getParent()).getWidth())
+                image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            if (bitmap.getHeight() > 400)
+                params.height = 400;
+            else
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             image.setLayoutParams(params);
             image.setImageBitmap(bitmap);
+        });
+        storageReference.getBytes(ONE_MEGABYTE).addOnFailureListener(e -> {
+            ViewGroup.LayoutParams params = image.getLayoutParams();
+            image.setLayoutParams(params);
+            image.setVisibility(View.GONE);
         });
     }
 

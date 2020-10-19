@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +32,6 @@ public class SearchPostUI extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
     private FirebaseRecyclerOptions<Post> options;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class SearchPostUI extends AppCompatActivity {
         mResultList = findViewById(R.id.result_list);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(this));
+        mResultList.addItemDecoration(new DividerItemDecoration(mResultList.getContext(), DividerItemDecoration.VERTICAL));
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -84,10 +85,7 @@ public class SearchPostUI extends AppCompatActivity {
                     viewHolder.itemView.setLayoutParams(viewHolder.params);
                 }
             }
-
-
         };
-
         firebaseRecyclerAdapter.startListening();
         mResultList.setAdapter(firebaseRecyclerAdapter);
     }
@@ -110,7 +108,6 @@ public class SearchPostUI extends AppCompatActivity {
         }
 
         public void setDetails(String postTitle, String postDescription, String subject) {
-
             TextView post_title = mView.findViewById(R.id.postTitle_text);
             TextView post_description = mView.findViewById(R.id.postDescription_text);
             TextView post_subject = mView.findViewById(R.id.subject_text);

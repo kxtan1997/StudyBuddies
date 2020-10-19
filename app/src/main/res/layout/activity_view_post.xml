@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl1"
             android:layout_width="match_parent"
-            android:layout_height="122dp">
+            android:layout_height="80dp">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -23,12 +22,12 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginBottom="36dp"
                 android:background="@drawable/hiclipart"
                 android:contentDescription="@string/profile"
                 android:paddingTop="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -147,7 +146,7 @@
 
             <TextView
                 android:id="@+id/postTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans"
                 android:text="@string/title_here"
@@ -169,11 +168,11 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintTop_toBottomOf="@+id/postTitle" />
 
             <TextView
                 android:id="@+id/postSubject"
-                android:layout_width="wrap_content"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
@@ -208,32 +207,52 @@
 
             <TextView
                 android:id="@+id/postDescription"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nunito_sans"
+                android:gravity="start"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/in_descriptive_writing_the_author_does_not_just_tell_the_reader_what_was_seen_felt_tested_smelled_or_heard_rather_the_author_describes_something_from_their_own_experience_and_through_careful_choice_of_words_and_phrasing_makes_it_seem_real_descriptive_writing_is_vivid_colorful_and_detailed"
                 android:textColor="#050505"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl4"
             android:layout_width="match_parent"
-            android:layout_height="161dp">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/post_image"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:scaleType="centerInside"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toTopOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_max="300dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_semibold"
                 android:text="@string/comments"
@@ -242,34 +261,21 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.94" />
-
-            <ImageView
-                android:id="@+id/iv_image"
-                android:layout_width="254dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/post_image"
-                app:layout_constraintBottom_toTopOf="@+id/textView4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/iv_image" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentsRecyclerView"
-        android:layout_width="327dp"
-        android:layout_height="103dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:fontFamily="@font/nunito_semibold"
         android:textColor="#050505"
         app:layout_constraintBottom_toTopOf="@id/cl5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/postView"
-        app:layout_constraintVertical_bias="0.373" />
+        app:layout_constraintTop_toBottomOf="@id/postView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl5"

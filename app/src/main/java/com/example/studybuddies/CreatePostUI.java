@@ -107,8 +107,8 @@ public class CreatePostUI extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             assert data != null;
-            image.setImageURI(data.getData());
             imageUri = data.getData();
+            image.setImageURI(imageUri);
             image.setVisibility(View.VISIBLE);
         }
     }
@@ -125,20 +125,18 @@ public class CreatePostUI extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(imageUri));
     }
 
-
     private void addPostToDB() {
         String postDes = postDescription.getText().toString().trim();
         String title = postTitle.getText().toString().trim();
         String sub = subjects.getSelectedItem().toString();
 
         if (!TextUtils.isEmpty(postDes) && !TextUtils.isEmpty(title)) {
-            if (sub.equals("-")){
+            if (sub.equals("-")) {
                 if (toast != null)
                     toast.cancel();
                 toast = Toast.makeText(this, "Have to fill subject field", Toast.LENGTH_LONG);
                 toast.show();
-            }
-            else {
+            } else {
                 String id = databasePost.push().getKey();
 
                 System.out.println(username);
@@ -156,8 +154,7 @@ public class CreatePostUI extends AppCompatActivity {
                 intent.putExtra("userID", userID);
                 startActivity(intent);
             }
-        }
-        else {
+        } else {
             if (toast != null)
                 toast.cancel();
             toast = Toast.makeText(this, "This field cannot be empty", Toast.LENGTH_LONG);

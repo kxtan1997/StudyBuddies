@@ -96,7 +96,6 @@ public class EditProfileUI extends AppCompatActivity {
     }
 
     public void saveSettings() {
-        //TODO save settings
         strong1 = strongSub1.getSelectedItem().toString();
         strong2 = strongSub2.getSelectedItem().toString();
         strong3 = strongSub3.getSelectedItem().toString();
