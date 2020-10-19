@@ -149,14 +149,16 @@
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="235dp"
+        android:layout_height="318dp"
         android:contentDescription="@string/post_image"
         android:src="@drawable/upload"
         app:layout_constraintBottom_toBottomOf="@id/upload_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
         app:layout_constraintStart_toEndOf="@id/upload_button"
-        app:layout_constraintTop_toTopOf="@id/upload_button" />
+        app:layout_constraintTop_toTopOf="@id/upload_button"
+        app:layout_constraintVertical_bias="0.362" />
 
     <Button
         android:id="@+id/postValue"
@@ -172,8 +174,9 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subjects" />
+        app:layout_constraintTop_toBottomOf="@+id/subjects"
+        app:layout_constraintVertical_bias="0.809" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

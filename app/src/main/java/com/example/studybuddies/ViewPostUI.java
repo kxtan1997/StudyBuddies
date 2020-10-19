@@ -186,8 +186,8 @@ public class ViewPostUI extends AppCompatActivity {
         storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             ViewGroup.LayoutParams params = image.getLayoutParams();
-            params.width = 170;
-            params.height = 130;
+            params.width =600 ;
+            params.height = 400;
             image.setLayoutParams(params);
             image.setImageBitmap(bitmap);
         });
