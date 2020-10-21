@@ -187,7 +187,7 @@ public class ViewPostUI extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             ViewGroup.LayoutParams params = image.getLayoutParams();
             if (bitmap.getWidth() < ((View) image.getParent()).getWidth())
-                image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                image.setScaleType(ImageView.ScaleType.FIT_CENTER);
             if (bitmap.getHeight() > 400)
                 params.height = 400;
             else

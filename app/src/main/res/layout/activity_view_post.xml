@@ -95,33 +95,29 @@
                 android:id="@+id/downVote"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginLeft="150dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginBottom="18dp"
                 android:background="@drawable/ic_baseline_arrow_drop_down_24"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/postRating"
-                app:layout_constraintTop_toBottomOf="@+id/posterUsername"
-                app:layout_constraintVertical_bias="0.205" />
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/posterUsername" />
 
             <Button
                 android:id="@+id/upVote"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="230dp"
-                android:layout_marginLeft="230dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="18dp"
                 android:background="@drawable/ic_baseline_arrow_drop_up_24"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/postRating"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/posterUsername"
-                app:layout_constraintVertical_bias="0.205" />
+                app:layout_constraintTop_toBottomOf="@+id/posterUsername" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
