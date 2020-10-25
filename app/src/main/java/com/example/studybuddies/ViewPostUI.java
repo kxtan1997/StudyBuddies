@@ -297,7 +297,7 @@ public class ViewPostUI extends AppCompatActivity {
         if (!TextUtils.isEmpty(subject)) {
             String id = current_post.child("comments").push().getKey();
 
-            Comment comment = new Comment(username, id, subject, 0, null);
+            Comment comment = new Comment(userID, username, id, subject, 0, null);
 
             assert id != null;
             current_post.child("comments").child(id).setValue(comment);
@@ -324,6 +324,10 @@ public class ViewPostUI extends AppCompatActivity {
                 commentViewHolder.commentUsername.setText(comment.getUsername());
                 commentViewHolder.commentSubject.setText(comment.getSubject());
                 commentViewHolder.commentRating.setText(String.format("%s", comment.getRating()));
+                if (comment.getUserID().equals(userID)) {
+                    commentViewHolder.deleteButton.setVisibility(View.VISIBLE);
+                    commentViewHolder.deleteButton.setOnClickListener(v -> commentViewHolder.deleteComment(comment));
+                }
             }
 
             @NonNull
@@ -340,7 +344,7 @@ public class ViewPostUI extends AppCompatActivity {
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         TextView commentUsername, commentSubject, commentRating;
-        Button commentUpVote, commentDownVote;
+        Button commentUpVote, commentDownVote, deleteButton;
         View mView;
 
         public CommentViewHolder(@NonNull View itemView) {
@@ -352,6 +356,7 @@ public class ViewPostUI extends AppCompatActivity {
             commentRating = itemView.findViewById(R.id.commentRating);
             commentUpVote = itemView.findViewById(R.id.commentUpVote);
             commentDownVote = itemView.findViewById(R.id.commentDownVote);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
 
         public void upVoteComment(Comment comment) {
@@ -446,6 +451,10 @@ public class ViewPostUI extends AppCompatActivity {
                 current_post.child("comments").child(comment.getCommentID()).child("commentUID").child(userID).setValue(ServerValue.increment(-2)); //update firebase raterUID
                 commentLocalRaterUIDValue -= 2;
             }
+        }
+
+        public void deleteComment(Comment comment) {
+            current_post.child("comments").child(comment.getCommentID()).removeValue();
         }
     }
 }

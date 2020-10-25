@@ -13,9 +13,9 @@
     <string name="account_name_here">Account Name Here</string>
     <string name="rating_colon">Rating:</string>
     <string name="_0">0</string>
-    <string name="title">Title:</string>
+    <string name="title_colon">Title:</string>
     <string name="title_here">Title Here</string>
-    <string name="subject">Subject:</string>
+    <string name="subject_colon">Subject:</string>
     <string name="subject_here">Subject Here</string>
     <string name="description">Description:</string>
     <string name="in_descriptive_writing_the_author_does_not_just_tell_the_reader_what_was_seen_felt_tested_smelled_or_heard_rather_the_author_describes_something_from_their_own_experience_and_through_careful_choice_of_words_and_phrasing_makes_it_seem_real_descriptive_writing_is_vivid_colorful_and_detailed">In descriptive writing, the author does not just tell the reader what was seen, felt, tested, smelled, or heard. Rather, the author describes something from their own experience and, through careful choice of words and phrasing, makes it seem real. Descriptive writing is vivid, colorful, and detailed.</string>
@@ -51,6 +51,10 @@
     <string name="post_image">Post Image</string>
     <string name="upload_an_image">Upload An Image</string>
     <string name="comment_username_here">Comment username here</string>
+    <string name="delete_button">DeleteButton</string>
+    <string name="title">Title</string>
+    <string name="post_description">Post description</string>
+    <string name="subject">Subject</string>
 
     <array name="subjects">
         <item>-</item>
