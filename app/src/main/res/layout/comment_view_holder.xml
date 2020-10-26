@@ -87,7 +87,7 @@
         android:background="#00FFFFFF"
         android:contentDescription="@string/delete_button"
         android:tint="#FF0000"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete" />
