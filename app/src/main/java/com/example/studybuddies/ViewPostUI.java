@@ -195,6 +195,10 @@ public class ViewPostUI extends AppCompatActivity {
 
     public void deletePost() {
         current_post.removeValue();
+        if (toast != null)
+            toast.cancel();
+        toast = Toast.makeText(this, "Post deleted", Toast.LENGTH_SHORT);
+        toast.show();
         Intent intent = new Intent(this, MainMenuUI.class);
         intent.putExtra("userID", userID);
         startActivity(intent);
@@ -477,6 +481,10 @@ public class ViewPostUI extends AppCompatActivity {
         public void deleteComment(Comment comment) {
             current_post.child("comments").child(comment.getCommentID()).removeValue();
             adapter.notifyDataSetChanged();
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Comment deleted", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 }

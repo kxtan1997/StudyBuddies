@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,8 @@ public class MainMenuUI extends AppCompatActivity {
     DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
     DatabaseReference postReference = FirebaseDatabase.getInstance().getReference().child("posts");
     FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter;
+
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,8 +214,11 @@ public class MainMenuUI extends AppCompatActivity {
 
         public void deletePost(Post post) {
             postReference.child(post.getPostID()).removeValue();
-            System.out.println("hi");
             adapter.notifyDataSetChanged();
+            if (toast != null)
+                toast.cancel();
+            toast = Toast.makeText(getApplicationContext(), "Post deleted", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 }
