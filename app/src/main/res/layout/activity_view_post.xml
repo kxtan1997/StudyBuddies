@@ -52,6 +52,8 @@
                 android:id="@+id/posterUsername"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="32dp"
                 android:fontFamily="@font/nunito_semibold"
                 android:text="@string/account_name_here"
@@ -95,8 +97,8 @@
                 android:id="@+id/downVote"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="150dp"
-                android:layout_marginLeft="150dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginLeft="130dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="18dp"
@@ -109,8 +111,8 @@
                 android:id="@+id/upVote"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginLeft="100dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="18dp"
@@ -118,6 +120,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
                 app:layout_constraintTop_toBottomOf="@+id/posterUsername" />
+
+            <ImageButton
+                android:id="@+id/deletePostButton2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#00FFFFFF"
+                android:contentDescription="@string/delete_button"
+                android:tint="#FF0000"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/posterUsername"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/posterUsername"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

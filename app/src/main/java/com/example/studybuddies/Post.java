@@ -3,6 +3,7 @@ package com.example.studybuddies;
 import java.util.HashMap;
 
 public class Post {
+    String posterID;
     String posterUsername;
     String postID;
     String postTitle;
@@ -15,7 +16,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(String posterUsername, String postID, String postTitle, String postDescription, String subject, HashMap<String, Comment> comments, int rating, HashMap<String, Integer> raterUID) {
+    public Post(String posterID, String posterUsername, String postID, String postTitle, String postDescription, String subject, HashMap<String, Comment> comments, int rating, HashMap<String, Integer> raterUID) {
+        this.posterID = posterID;
         this.posterUsername = posterUsername;
         this.postID = postID;
         this.postTitle = postTitle;
@@ -26,11 +28,19 @@ public class Post {
         this.raterUID = raterUID;
     }
 
+    public String getPosterID() {
+        return posterID;
+    }
+
+    public void setPosterID(String posterID) {
+        this.posterID = posterID;
+    }
+
     public String getPosterUsername() {
         return posterUsername;
     }
 
-    public void setPosterUID(String posterUsername) {
+    public void setPosterUsername(String posterUsername) {
         this.posterUsername = posterUsername;
     }
 

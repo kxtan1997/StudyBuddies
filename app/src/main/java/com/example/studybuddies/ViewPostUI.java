@@ -1,6 +1,7 @@
 package com.example.studybuddies;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +42,7 @@ import java.util.Objects;
 public class ViewPostUI extends AppCompatActivity {
 
     Button submitButton, upVote, downVote;
+    ImageButton deleteButton;
     int pos;
     String page, pid, userID, username;
     TextView pRating, pTitle, pDescription, pSubject, pUsername;
@@ -47,6 +50,7 @@ public class ViewPostUI extends AppCompatActivity {
     ImageView image;
     RecyclerView commentsRecyclerView;
     DatabaseReference current_post; //get firebase reference of current post to facilitate updating of it
+    FirebaseRecyclerAdapter<Comment, CommentViewHolder> adapter;
     Toast toast;
 
     Integer postLocalRaterUIDValue = 0; //cos single listener so need this to update the app locally
@@ -68,6 +72,7 @@ public class ViewPostUI extends AppCompatActivity {
         submitButton = findViewById(R.id.submitButton);
         upVote = findViewById(R.id.upVote);
         downVote = findViewById(R.id.downVote);
+        deleteButton = findViewById(R.id.deletePostButton2);
         commentInput = findViewById(R.id.commentInput);
         image = findViewById(R.id.iv_image);
 
@@ -123,6 +128,10 @@ public class ViewPostUI extends AppCompatActivity {
 
                             pUsername.setText(np.posterUsername);
                             pRating.setText(String.valueOf(np.rating));
+                            if (np.getPosterID().equals(userID)) {
+                                deleteButton.setVisibility(View.VISIBLE);
+                                deleteButton.setOnClickListener(v -> deletePost());
+                            }
                             pTitle.setText(np.postTitle);
                             pDescription.setText(np.postDescription);
                             pSubject.setText(np.subject);
@@ -159,6 +168,10 @@ public class ViewPostUI extends AppCompatActivity {
 
                                     pUsername.setText(posts.get(i).getPosterUsername());
                                     pRating.setText(String.valueOf(posts.get(i).getRating()));
+                                    if (posts.get(i).getPosterID().equals(userID)) {
+                                        deleteButton.setVisibility(View.VISIBLE);
+                                        deleteButton.setOnClickListener(v -> deletePost());
+                                    }
                                     pTitle.setText(posts.get(i).getPostTitle());
                                     pDescription.setText(posts.get(i).getPostDescription());
                                     pSubject.setText(posts.get(i).getSubject());
@@ -178,6 +191,13 @@ public class ViewPostUI extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    public void deletePost() {
+        current_post.removeValue();
+        Intent intent = new Intent(this, MainMenuUI.class);
+        intent.putExtra("userID", userID);
+        startActivity(intent);
     }
 
     public void displayPostImage(String postId) {
@@ -316,7 +336,7 @@ public class ViewPostUI extends AppCompatActivity {
     public void loadComments() {
         Query commentsQuery = current_post.child("comments");
         FirebaseRecyclerOptions<Comment> options = new FirebaseRecyclerOptions.Builder<Comment>().setQuery(commentsQuery, Comment.class).build();
-        FirebaseRecyclerAdapter<Comment, CommentViewHolder> adapter = new FirebaseRecyclerAdapter<Comment, CommentViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Comment, CommentViewHolder>(options) {
             @Override
             protected void onBindViewHolder(final CommentViewHolder commentViewHolder, int i, final Comment comment) {
                 commentViewHolder.commentUpVote.setOnClickListener(v -> commentViewHolder.upVoteComment(comment));
@@ -344,7 +364,8 @@ public class ViewPostUI extends AppCompatActivity {
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         TextView commentUsername, commentSubject, commentRating;
-        Button commentUpVote, commentDownVote, deleteButton;
+        Button commentUpVote, commentDownVote;
+        ImageButton deleteButton;
         View mView;
 
         public CommentViewHolder(@NonNull View itemView) {
@@ -356,7 +377,7 @@ public class ViewPostUI extends AppCompatActivity {
             commentRating = itemView.findViewById(R.id.commentRating);
             commentUpVote = itemView.findViewById(R.id.commentUpVote);
             commentDownVote = itemView.findViewById(R.id.commentDownVote);
-            deleteButton = itemView.findViewById(R.id.deleteButton);
+            deleteButton = itemView.findViewById(R.id.deleteCommentButton);
         }
 
         public void upVoteComment(Comment comment) {
@@ -455,6 +476,7 @@ public class ViewPostUI extends AppCompatActivity {
 
         public void deleteComment(Comment comment) {
             current_post.child("comments").child(comment.getCommentID()).removeValue();
+            adapter.notifyDataSetChanged();
         }
     }
 }

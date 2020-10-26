@@ -15,13 +15,14 @@
 
     <TextView
         android:id="@+id/singlePostTitle"
-        android:layout_width="match_parent"
+        android:layout_width="355dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_bold"
         android:text="@string/post_title"
         android:textColor="#040404"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/singlePostSubject"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -49,4 +50,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/singlePostSubject"
         app:layout_constraintTop_toBottomOf="@+id/singlePostTitle" />
+
+    <ImageButton
+        android:id="@+id/deletePostButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/delete_button"
+        android:tint="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/singlePostTitle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/singlePostTitle"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

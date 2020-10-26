@@ -140,7 +140,7 @@ public class CreatePostUI extends AppCompatActivity {
                 String id = databasePost.push().getKey();
 
                 System.out.println(username);
-                Post post = new Post(username, id, title, postDes, sub, null, 0, null);
+                Post post = new Post(userID, username, id, title, postDes, sub, null, 0, null);
                 assert id != null;
                 databasePost.child(id).setValue(post);
                 saveImage(this, imageUri, id);

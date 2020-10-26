@@ -39,6 +39,7 @@ public class MainMenuUI extends AppCompatActivity {
     FirebaseRecyclerOptions<Post> options;
     DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
     DatabaseReference postReference = FirebaseDatabase.getInstance().getReference().child("posts");
+    FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class MainMenuUI extends AppCompatActivity {
 
     public void initialisePosts() {
         options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(postReference, Post.class).build();
-        FirebaseRecyclerAdapter<Post, MainMenuViewHolder> adapter = new FirebaseRecyclerAdapter<Post, MainMenuViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Post, MainMenuViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull final MainMenuViewHolder mainMenuViewHolder, int i, @NonNull final Post post) {
                 if (filterFlag) {
@@ -100,6 +101,10 @@ public class MainMenuUI extends AppCompatActivity {
                         mainMenuViewHolder.postTitle.setText(post.getPostTitle());
                         mainMenuViewHolder.postSubject.setText(post.getSubject());
                         mainMenuViewHolder.postRating.setText(String.format(Locale.ENGLISH, "%d", post.getRating()));
+                        if (post.getPosterID().equals(userID)) {
+                            mainMenuViewHolder.deleteButton.setVisibility(View.VISIBLE);
+                            mainMenuViewHolder.deleteButton.setOnClickListener(v -> mainMenuViewHolder.deletePost(post));
+                        }
 
                         final String pid = post.getPostID();
 
@@ -124,6 +129,10 @@ public class MainMenuUI extends AppCompatActivity {
                         mainMenuViewHolder.postTitle.setText(post.getPostTitle());
                         mainMenuViewHolder.postSubject.setText(post.getSubject());
                         mainMenuViewHolder.postRating.setText(String.format(Locale.ENGLISH, "%d", post.getRating()));
+                        if (post.getPosterID().equals(userID)) {
+                            mainMenuViewHolder.deleteButton.setVisibility(View.VISIBLE);
+                            mainMenuViewHolder.deleteButton.setOnClickListener(v -> mainMenuViewHolder.deletePost(post));
+                        }
 
                         final String pid = post.getPostID();
 
@@ -184,10 +193,11 @@ public class MainMenuUI extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static class MainMenuViewHolder extends RecyclerView.ViewHolder {
+    public class MainMenuViewHolder extends RecyclerView.ViewHolder {
 
         TextView postTitle, postSubject, postRating;
         View mView;
+        ImageButton deleteButton;
 
         public MainMenuViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -196,6 +206,13 @@ public class MainMenuUI extends AppCompatActivity {
             postTitle = itemView.findViewById(R.id.singlePostTitle);
             postSubject = itemView.findViewById(R.id.singlePostSubject);
             postRating = itemView.findViewById(R.id.singleRating);
+            deleteButton = itemView.findViewById(R.id.deletePostButton);
+        }
+
+        public void deletePost(Post post) {
+            postReference.child(post.getPostID()).removeValue();
+            System.out.println("hi");
+            adapter.notifyDataSetChanged();
         }
     }
 }
